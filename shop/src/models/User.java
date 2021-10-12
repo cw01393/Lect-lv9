@@ -38,5 +38,8 @@ public class User {
 	public void setTotalSales(int sales) {
 		this.totalSales = sales;
 	}
+	public void setNewCart() {
+		this.cart = new ArrayList<Cart>();
+	}
 	
 }

@@ -45,9 +45,10 @@ public class ItemManager {
 				if(itemIdx != -1) {
 					String id = nowUser.getId();
 					String itemName = this.items.get(itemIdx).getName();
+					int price = this.items.get(itemIdx).getPrice();
 					int cartIdx = searchCartIdx(itemName);
 					if(cartIdx == -1) {
-						nowUser.addCart(new Cart(id, itemName));
+						nowUser.addCart(new Cart(id, itemName, price));
 					}
 					else {
 						int count = nowUser.getCart(cartIdx).getCount() + 1;
@@ -125,7 +126,9 @@ public class ItemManager {
 			else if(sel.equals("2")) {
 				deleteCart();
 			}
-			else if(sel.equals("3")) {}
+			else if(sel.equals("3")) {
+				purchase();
+			}
 			else if(sel.equals("0")) {
 				break;
 			}
@@ -153,6 +156,25 @@ public class ItemManager {
 			}
 			
 		} catch (Exception e) {
+		}
+	}
+	
+	private void purchase() {
+		User nowUser = um.getUser(Shop.log);
+		
+		int total = 0;
+		for(int i=0; i<nowUser.getCartSize(); i++) {
+			total += nowUser.getCart(i).getCount() * nowUser.getCart(i).getPrice();
+		}
+		System.out.println("총 금액: " + total + "원");
+		System.out.println("구매하시겠습니까? 1)YES 2)NO");
+		String sel = Shop.sc.next();
+		
+		if(sel.equals("1")) {
+			int totalSales = nowUser.getTotalSales() + total;
+			nowUser.setTotalSales(totalSales);
+			nowUser.setNewCart();
+			System.out.println("구매완료! 구매해주셔서 감사합니다");
 		}
 	}
 	
