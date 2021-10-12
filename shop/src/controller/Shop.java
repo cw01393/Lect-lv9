@@ -10,8 +10,10 @@ public class Shop {
 	private boolean isRun = true;
 	
 	private UserManager um = UserManager.instance;
+	private ItemManager im = ItemManager.instance;
 	
 	public void run() {
+		setShop();
 		while(this.isRun) {
 			printMenu();
 			selectMenu();
@@ -41,8 +43,12 @@ public class Shop {
 				if(menu == 1) {
 					um.join();
 				}
-				else if(menu == 2) {}
-				else if(menu == 3) {}
+				else if(menu == 2) {
+					um.logIn();
+				}
+				else if(menu == 3) {
+					um.adminLogIn();
+				}
 				else if(menu == 0) {
 					programOff();
 				}
@@ -70,5 +76,10 @@ public class Shop {
 	
 	private void programOff() {
 		this.isRun = false;
+	}
+	
+	private void setShop() {
+		im.setCate();
+		im.setItems();
 	}
 }

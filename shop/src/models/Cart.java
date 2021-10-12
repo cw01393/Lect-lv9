@@ -1,27 +1,26 @@
 package models;
 
-import java.util.ArrayList;
-
 public class Cart {
 
 	private String id;
-	private ArrayList<Item> cart = new ArrayList<>();
+	private String itemName;
+	private int count;
 	
-	public Cart(String id) {
+	public Cart(String id, String itemName) {
 		this.id = id;
+		this.itemName = itemName;
+		this.count = 1;
 	}
 	
 	public String getid() {
 		return this.id;
 	}
+	public String getItemName() {
+		return this.itemName;
+	}
+	public int getCount() {
+		return this.count;
+	}
 	
-	public Item getCartItem(int index) {
-		return this.cart.get(index);
-	}
-	public void addCart(Item item) {
-		this.cart.add(item);
-	}
-	public void removeCart(int index) {
-		this.cart.remove(index);
-	}
+
 }
