@@ -46,7 +46,7 @@ public class Shop {
 				else if(menu == 2) {
 					um.logIn();
 				}
-				else if(menu == 3) {
+				else if(menu == 100) {
 					um.adminLogIn();
 				}
 				else if(menu == 0) {
@@ -54,11 +54,17 @@ public class Shop {
 				}
 			}
 			else if(Shop.log == -100){
-				if(menu == 1) {}
-				else if(menu == 2) {}
+				if(menu == 1) {
+					printItemManager();
+				}
+				else if(menu == 2) {
+					printCateManager();
+				}
 				else if(menu == 3) {}
 				else if(menu == 4) {}
-				else if(menu == 0) {}
+				else if(menu == 0) {
+					Shop.log = -1;
+				}
 			}
 			else {
 				if(menu == 1) {
@@ -87,5 +93,46 @@ public class Shop {
 	private void setShop() {
 		im.setCate();
 		im.setItems();
+	}
+	
+	private void printItemManager() {
+		while(true) {
+			System.out.println("1.전체아이템\n2.아이템추가\n3.아이템삭제\n0.뒤로가기");
+			System.out.print("메뉴선택: ");
+			String sel = Shop.sc.next();
+			
+			if(sel.equals("1")) {
+				im.printAllItems();
+			}
+			else if(sel.equals("2")) {
+				im.addItem();
+			}
+			else if(sel.equals("3")) {
+				im.removeItem();
+			}
+			else if(sel.equals("0")) {
+				break;
+			}
+		}
+	}
+	private void printCateManager() {
+		while(true) {
+			System.out.println("1.전체카테고리\n2.카테고리추가\n3.카테고리삭제\n0.뒤로가기");
+			System.out.print("메뉴선택: ");
+			String sel = Shop.sc.next();
+			
+			if(sel.equals("1")) {
+				im.printCate();
+			}
+			else if(sel.equals("2")) {
+				im.addCategory();
+			}
+			else if(sel.equals("3")) {
+				im.removeCate();
+			}
+			else if(sel.equals("0")) {
+				break;
+			}
+		}
 	}
 }

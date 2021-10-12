@@ -44,13 +44,6 @@ public class UserManager {
 		return -1;
 	}
 	
-//	private boolean idDupCheck(String id) {
-//		for(User user : this.users) {
-//			if(user.getId().equals(id)) return true;
-//		}
-//		return false;
-//	}
-	
 	public void leave() {
 		System.out.print("비밀번호 재입력: ");
 		String pw = Shop.sc.next();
