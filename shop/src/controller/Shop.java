@@ -21,7 +21,7 @@ public class Shop {
 	}
 	
 	private void printMenu() {
-		if(Shop.log != -1) {
+		if(Shop.log == -1) {
 			System.out.println("1.가입\n2.로그인\n100.관리자모드\n0.종료");
 		}
 		else if(Shop.log == -100){
@@ -39,7 +39,7 @@ public class Shop {
 		try {
 			int menu = Integer.parseInt(sel);
 			
-			if(Shop.log != -1) {
+			if(Shop.log == -1) {
 				if(menu == 1) {
 					um.join();
 				}
@@ -61,9 +61,15 @@ public class Shop {
 				else if(menu == 0) {}
 			}
 			else {
-				if(menu == 1) {}
-				else if(menu == 2) {}
-				else if(menu == 3) {}
+				if(menu == 1) {
+					im.shopping();
+				}
+				else if(menu == 2) {
+					im.printCartMenu();
+				}
+				else if(menu == 3) {
+					Shop.log = -1;
+				}
 				else if(menu == 4) {
 					um.leave();
 				}

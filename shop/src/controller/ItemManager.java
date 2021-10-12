@@ -2,7 +2,9 @@ package controller;
 
 import java.util.ArrayList;
 
+import models.Cart;
 import models.Item;
+import models.User;
 
 public class ItemManager {
 
@@ -38,8 +40,19 @@ public class ItemManager {
 			if(sel >= 0 && sel < this.cate.size()) {
 				String cate = this.cate.get(sel);
 				int itemIdx = selectItem(cate);
+				User nowUser = um.getUser(Shop.log);
+				
 				if(itemIdx != -1) {
-					um.getUser(Shop.log)
+					String id = nowUser.getId();
+					String itemName = this.items.get(itemIdx).getName();
+					int cartIdx = searchCartIdx(itemName);
+					if(cartIdx == -1) {
+						nowUser.addCart(new Cart(id, itemName));
+					}
+					else {
+						int count = nowUser.getCart(cartIdx).getCount() + 1;
+						nowUser.getCart(cartIdx).setCount(count);
+					}
 				}
 			}
 			else if(sel == -2) {
@@ -50,7 +63,7 @@ public class ItemManager {
 	
 	private int selectCate() {
 		for(int i=0; i<this.cate.size(); i++) {
-			System.out.printf("[&d] %s\n",i+1,this.cate.get(i));
+			System.out.printf("[%d] %s\n",i+1,this.cate.get(i));
 		}
 		System.out.print("카테고리 선택(-1: 뒤로가기): ");
 		String sel = Shop.sc.next();
@@ -89,6 +102,58 @@ public class ItemManager {
 		} catch (Exception e) {
 		}
 		return -1;
+	}
+	
+	private int searchCartIdx(String itemName) {
+		User nowUser = um.getUser(Shop.log);
+		for(int i=0; i<nowUser.getCartSize(); i++) {
+			if(um.getUser(Shop.log).getCart(i).getItemName().equals(itemName)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	public void printCartMenu() {
+		while(true) {
+			System.out.println("1.내 장바구니\n2.삭제\n3.구입\n0.뒤로가기");
+			String sel = Shop.sc.next();
+			
+			if(sel.equals("1")) {
+				printCart();
+			}
+			else if(sel.equals("2")) {
+				deleteCart();
+			}
+			else if(sel.equals("3")) {}
+			else if(sel.equals("0")) {
+				break;
+			}
+		}
+	}
+	
+	private void printCart() {
+		User nowUser = um.getUser(Shop.log);
+		for(int i=0; i<nowUser.getCartSize(); i++) {
+			System.out.printf("[%d][%s][%d개]\n",
+					i+1,nowUser.getCart(i).getItemName(),nowUser.getCart(i).getCount());
+		}
+	}
+	private void deleteCart() {
+		printCart();
+		System.out.print("삭제할 item선택: ");
+		String sel = Shop.sc.next();
+		
+		try {
+			int idx = Integer.parseInt(sel)-1;
+			User nowUser = um.getUser(Shop.log);
+
+			if(idx >= 0 && idx < nowUser.getCartSize()) {
+				nowUser.removeCart(idx);
+			}
+			
+		} catch (Exception e) {
+		}
 	}
 	
 }

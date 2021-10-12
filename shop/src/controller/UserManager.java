@@ -17,6 +17,7 @@ public class UserManager {
 	public User getUser(int index) {
 		return this.users.get(index);
 	}
+	
 	public void join() {
 		System.out.print("가입할 id: ");
 		String id = Shop.sc.next();
@@ -57,6 +58,7 @@ public class UserManager {
 		if(this.users.get(Shop.log).getPw().equals(pw)) {
 			this.users.remove(Shop.log);
 			Shop.log = -1;
+			System.out.println("회원탈퇴 완료");
 		}
 	}
 	

@@ -23,10 +23,13 @@ public class User {
 	public int getTotalSales() {
 		return this.totalSales;
 	}
+	public int getCartSize() {
+		return this.cart.size();
+	}
 	public Cart getCart(int index) {
 		return this.cart.get(index);
 	}
-	public void addCart(Item item) {
+	public void addCart(Cart item) {
 		this.cart.add(item);
 	}
 	public void removeCart(int index) {
