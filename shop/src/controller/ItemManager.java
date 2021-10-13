@@ -123,8 +123,9 @@ public class ItemManager {
 	public void printCart() {
 		User nowUser = um.getUser(Shop.log);
 		for(int i=0; i<nowUser.getCartSize(); i++) {
-			System.out.printf("[%d][%s][%d개]\n",
-					i+1,nowUser.getCart(i).getItemName(),nowUser.getCart(i).getCount());
+			int price = nowUser.getCart(i).getPrice()*nowUser.getCart(i).getCount();
+			System.out.printf("[%d][%s][%d개][총 %d원]\n",
+					i+1,nowUser.getCart(i).getItemName(),nowUser.getCart(i).getCount(),price);
 		}
 	}
 	public void deleteCart() {
