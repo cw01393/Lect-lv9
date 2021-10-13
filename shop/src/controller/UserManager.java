@@ -20,6 +20,12 @@ public class UserManager {
 	public int getUserSize() {
 		return this.users.size();
 	}
+	public void setNewUser() {
+		this.users = new ArrayList<User>();
+	}
+	public void addUsers(User user) {
+		this.users.add(user);
+	}
 	
 	public void join() {
 		System.out.print("가입할 id: ");

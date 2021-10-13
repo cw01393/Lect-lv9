@@ -13,6 +13,7 @@ public class Shop {
 	
 	private UserManager um = UserManager.instance;
 	private ItemManager im = ItemManager.instance;
+	private FileManager fm = FileManager.instance;
 	
 	public void run() {
 		setShop();
@@ -27,7 +28,8 @@ public class Shop {
 			System.out.println("1.가입\n2.로그인\n100.관리자모드\n0.종료");
 		}
 		else if(Shop.log == -100){
-			System.out.println("1.아이템관리\n2.카테고리관리\n3.장바구니관리\n4.유저관리\n5.총매출조회\n0.뒤로가기");
+			System.out.println("1.아이템관리\n2.카테고리관리\n3.장바구니관리\n4.유저관리"
+					+ "\n5.총매출조회\n6.파일저장\n7.파일로드\n0.뒤로가기");
 		}
 		else {
 			System.out.println("1.쇼핑\n2.장바구니목록\n3.로그아웃\n4.회원탈퇴");
@@ -70,6 +72,12 @@ public class Shop {
 				}
 				else if(menu == 5) {
 					im.printTotalSales();
+				}
+				else if(menu == 6) {
+					fm.save();
+				}
+				else if(menu == 7) {
+					fm.load();
 				}
 				else if(menu == 0) {
 					Shop.log = -1;
@@ -166,7 +174,7 @@ public class Shop {
 	}
 	private void printUserManager() {
 		while(true) {
-			System.out.println("1.전체유저출력 2.유저추가 3.유저삭제 0.뒤로가기");
+			System.out.println("1.전체유저출력\n2.유저추가\n3.유저삭제\n0.뒤로가기");
 			System.out.print("메뉴선택: ");
 			String sel = Shop.sc.next();
 			

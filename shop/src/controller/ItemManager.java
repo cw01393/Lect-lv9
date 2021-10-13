@@ -15,6 +15,25 @@ public class ItemManager {
 	public static ItemManager instance = new ItemManager();
 	private ItemManager() {}
 	
+	public int getItemsSize() {
+		return this.items.size();
+	}
+	public Item getItem(int index) {
+		return this.items.get(index);
+	}
+	public void setNewItemArray() {
+		this.items = new ArrayList<Item>();
+	}
+	public void setNewCateArray() {
+		this.cate = new ArrayList<String>();
+	}
+	public void addItems(Item item) {
+		this.items.add(item);
+	}
+	public void addCate(String cate) {
+		this.cate.add(cate);
+	}
+	
 	public void setCate() {
 		this.cate.add("과일");
 		this.cate.add("육류");

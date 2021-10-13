@@ -13,6 +13,12 @@ public class Cart {
 		this.price = price;
 		this.count = 1;
 	}
+	public Cart(String id, String itemName, int price, int count) {
+		this.id = id;
+		this.itemName = itemName;
+		this.price = price;
+		this.count = count;
+	}
 	
 	public String getid() {
 		return this.id;
@@ -32,8 +38,7 @@ public class Cart {
 	
 	@Override
 	public String toString() {
-		String str = "[" + this.itemName + "]"+"[" + this.price + "]"+"["+ this.count + "개]";
-		return str;
+		return "[" + this.itemName + "]"+"[" + this.price + "]"+"["+ this.count + "개]";
 	}
 
 }

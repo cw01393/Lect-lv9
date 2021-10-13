@@ -13,6 +13,11 @@ public class User {
 		this.id = id;
 		this.pw = pw;
 	}
+	public User(String id, String pw, int totalSales) {
+		this.id = id;
+		this.pw = pw;
+		this.totalSales = totalSales;
+	}
 	
 	public String getId() {
 		return this.id;
