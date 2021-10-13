@@ -175,20 +175,25 @@ public class ItemManager {
 		printCart();
 		User nowUser = um.getUser(Shop.log);
 		
-		int total = 0;
-		for(int i=0; i<nowUser.getCartSize(); i++) {
-			total += nowUser.getCart(i).getCount() * nowUser.getCart(i).getPrice();
+		if(nowUser.getCartSize() > 0) {
+			int total = 0;
+			for(int i=0; i<nowUser.getCartSize(); i++) {
+				total += nowUser.getCart(i).getCount() * nowUser.getCart(i).getPrice();
+			}
+			System.out.println("총 금액: " + total + "원");
+			System.out.println("구매하시겠습니까? 1)YES 2)NO");
+			String sel = Shop.sc.next();
+			
+			if(sel.equals("1")) {
+				int totalSales = nowUser.getTotalSales() + total;
+				nowUser.setTotalSales(totalSales);
+				nowUser.setNewCart();
+				Shop.totalSales += totalSales;
+				System.out.println("구매완료! 구매해주셔서 감사합니다");
+			}
 		}
-		System.out.println("총 금액: " + total + "원");
-		System.out.println("구매하시겠습니까? 1)YES 2)NO");
-		String sel = Shop.sc.next();
-		
-		if(sel.equals("1")) {
-			int totalSales = nowUser.getTotalSales() + total;
-			nowUser.setTotalSales(totalSales);
-			nowUser.setNewCart();
-			Shop.totalSales += totalSales;
-			System.out.println("구매완료! 구매해주셔서 감사합니다");
+		else {
+			System.out.println("장바구니가 비어있습니다");
 		}
 	}
 	

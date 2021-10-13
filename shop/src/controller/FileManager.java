@@ -27,25 +27,29 @@ public class FileManager {
 	
 	
 	public void save() {
-		try {
-			String data = makeUserData();
-			file = new File(this.userFileName);
-			fw = new FileWriter(this.file);
-			fw.write(data);
-			fw.close();
-			
-			data = makeItemData();
-			
-			file = new File(this.itemFileName);
-			fw = new FileWriter(file);
-			fw.write(data);
-			fw.close();
-			
-			System.out.println("저장 완료");
-		} catch (IOException e) {
-			System.out.println("저장 실패");
+		if(um.getUserSize() > 0) {
+			try {
+				String data = makeUserData();
+				file = new File(this.userFileName);
+				fw = new FileWriter(this.file);
+				fw.write(data);
+				fw.close();
+				
+				data = makeItemData();
+				
+				file = new File(this.itemFileName);
+				fw = new FileWriter(file);
+				fw.write(data);
+				fw.close();
+				
+				System.out.println("저장 완료");
+			} catch (IOException e) {
+				System.out.println("저장 실패");
+			}
 		}
-		
+		else {
+			System.out.println("저장할 데이터가 없습니다");
+		}
 	}
 	
 	private String makeUserData() {
