@@ -41,5 +41,10 @@ public class User {
 	public void setNewCart() {
 		this.cart = new ArrayList<Cart>();
 	}
+	@Override
+	public String toString() {
+		return "[Id:" + id + "][현재까지 구매금액: " + this.totalSales + "]";
+	}
+	
 	
 }

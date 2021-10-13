@@ -60,8 +60,12 @@ public class Shop {
 				else if(menu == 2) {
 					printCateManager();
 				}
-				else if(menu == 3) {}
-				else if(menu == 4) {}
+				else if(menu == 3) {
+					im.printAllCart();
+				}
+				else if(menu == 4) {
+					printUserManager();
+				}
 				else if(menu == 0) {
 					Shop.log = -1;
 				}
@@ -71,7 +75,7 @@ public class Shop {
 					im.shopping();
 				}
 				else if(menu == 2) {
-					im.printCartMenu();
+					printCartMenu();
 				}
 				else if(menu == 3) {
 					Shop.log = -1;
@@ -93,6 +97,26 @@ public class Shop {
 	private void setShop() {
 		im.setCate();
 		im.setItems();
+	}
+	
+	private void printCartMenu() {
+		while(true) {
+			System.out.println("1.내 장바구니\n2.삭제\n3.구입\n0.뒤로가기");
+			String sel = Shop.sc.next();
+			
+			if(sel.equals("1")) {
+				im.printCart();
+			}
+			else if(sel.equals("2")) {
+				im.deleteCart();
+			}
+			else if(sel.equals("3")) {
+				im.purchase();
+			}
+			else if(sel.equals("0")) {
+				break;
+			}
+		}
 	}
 	
 	private void printItemManager() {
@@ -133,6 +157,27 @@ public class Shop {
 			else if(sel.equals("0")) {
 				break;
 			}
+		}
+	}
+	private void printUserManager() {
+		while(true) {
+			System.out.println("1.전체유저출력 2.유저추가 3.유저삭제 0.뒤로가기");
+			System.out.print("메뉴선택: ");
+			String sel = Shop.sc.next();
+			
+			if(sel.equals("1")) {
+				um.printAllUsers();
+			}
+			else if(sel.equals("2")) {
+				um.join();
+			}
+			else if(sel.equals("3")) {
+				um.deleteUser();
+			}
+			else if(sel.equals("4")) {
+				break;
+			}
+			
 		}
 	}
 }

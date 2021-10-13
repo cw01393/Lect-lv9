@@ -17,6 +17,9 @@ public class UserManager {
 	public User getUser(int index) {
 		return this.users.get(index);
 	}
+	public int getUserSize() {
+		return this.users.size();
+	}
 	
 	public void join() {
 		System.out.print("가입할 id: ");
@@ -55,6 +58,30 @@ public class UserManager {
 		}
 	}
 	
+	public void deleteUser() {
+		System.out.print("삭제할 유저ID: ");
+		String id = Shop.sc.next();
+		int delIdx = idCheckIdx(id);
+		
+		if(delIdx != -1) {
+			while(true) {
+				System.out.printf("%s 유저를 정말 삭제하시겠습니까? [1.YES][2.NO]\n",id);
+				String answer = Shop.sc.next();
+				
+				if(answer.equals("1")) {
+					this.users.remove(delIdx);
+					System.out.println("유저 삭제 완료");
+				}
+				else if(answer.equals("2")) {
+					break;
+				}
+			}
+		}
+		else {
+			System.out.println("해당 유저가 존재하지 않습니다");
+		}
+	}
+	
 	public void logIn() {
 		System.out.print("id: ");
 		String id = Shop.sc.next();
@@ -88,6 +115,14 @@ public class UserManager {
 		}
 		else {
 			System.out.println("로그인 정보가 일치하지 않습니다");
+		}
+	}
+	
+	public void printAllUsers() {
+		int n = 1;
+		for(User user : this.users) {
+			System.out.printf("[%d]" + user +"\n",n);
+			n++;
 		}
 	}
 }

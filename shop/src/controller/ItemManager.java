@@ -105,6 +105,7 @@ public class ItemManager {
 			}
 			
 		} catch (Exception e) {
+			return -1;
 		}
 		return -1;
 	}
@@ -119,34 +120,14 @@ public class ItemManager {
 		return -1;
 	}
 	
-	public void printCartMenu() {
-		while(true) {
-			System.out.println("1.내 장바구니\n2.삭제\n3.구입\n0.뒤로가기");
-			String sel = Shop.sc.next();
-			
-			if(sel.equals("1")) {
-				printCart();
-			}
-			else if(sel.equals("2")) {
-				deleteCart();
-			}
-			else if(sel.equals("3")) {
-				purchase();
-			}
-			else if(sel.equals("0")) {
-				break;
-			}
-		}
-	}
-	
-	private void printCart() {
+	public void printCart() {
 		User nowUser = um.getUser(Shop.log);
 		for(int i=0; i<nowUser.getCartSize(); i++) {
 			System.out.printf("[%d][%s][%d개]\n",
 					i+1,nowUser.getCart(i).getItemName(),nowUser.getCart(i).getCount());
 		}
 	}
-	private void deleteCart() {
+	public void deleteCart() {
 		printCart();
 		System.out.print("삭제할 item선택: ");
 		String sel = Shop.sc.next();
@@ -169,7 +150,7 @@ public class ItemManager {
 		}
 	}
 	
-	private void purchase() {
+	public void purchase() {
 		User nowUser = um.getUser(Shop.log);
 		
 		int total = 0;
@@ -283,6 +264,17 @@ public class ItemManager {
 		}
 		
 		return false;
+	}
+	
+	public void printAllCart() {
+		for(int i=0; i<um.getUserSize(); i++) {
+			String userId = um.getUser(i).getId();
+			System.out.printf("유저 %s의 장바구니\n",userId);
+			for(int j=0; j<um.getUser(i).getCartSize(); j++) {
+				System.out.println("[" + j + "]" + um.getUser(i).getCart(j));
+			}
+			System.out.println("------------------------");
+		}
 	}
 	
 }

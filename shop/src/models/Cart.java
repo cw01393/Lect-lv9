@@ -30,5 +30,10 @@ public class Cart {
 		this.count = count;
 	}
 	
+	@Override
+	public String toString() {
+		String str = "[" + this.itemName + "]"+"[" + this.price + "]"+"["+ this.count + "개]";
+		return str;
+	}
 
 }
