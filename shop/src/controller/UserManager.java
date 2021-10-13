@@ -65,12 +65,13 @@ public class UserManager {
 		
 		if(delIdx != -1) {
 			while(true) {
-				System.out.printf("%s 유저를 정말 삭제하시겠습니까? [1.YES][2.NO]\n",id);
+				System.out.printf("%s 유저를 정말 삭제하시겠습니까? 1)YES 2)NO\n",id);
 				String answer = Shop.sc.next();
 				
 				if(answer.equals("1")) {
 					this.users.remove(delIdx);
 					System.out.println("유저 삭제 완료");
+					break;
 				}
 				else if(answer.equals("2")) {
 					break;

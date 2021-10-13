@@ -174,7 +174,7 @@ public class Shop {
 			else if(sel.equals("3")) {
 				um.deleteUser();
 			}
-			else if(sel.equals("4")) {
+			else if(sel.equals("0")) {
 				break;
 			}
 			

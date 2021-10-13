@@ -144,6 +144,7 @@ public class ItemManager {
 				else {
 					nowUser.removeCart(idx);
 				}
+				System.out.println("삭제 완료");
 			}
 			
 		} catch (Exception e) {
