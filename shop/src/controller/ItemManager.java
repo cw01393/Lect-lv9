@@ -153,6 +153,7 @@ public class ItemManager {
 	}
 	
 	public void purchase() {
+		printCart();
 		User nowUser = um.getUser(Shop.log);
 		
 		int total = 0;
@@ -167,6 +168,7 @@ public class ItemManager {
 			int totalSales = nowUser.getTotalSales() + total;
 			nowUser.setTotalSales(totalSales);
 			nowUser.setNewCart();
+			Shop.totalSales += totalSales;
 			System.out.println("구매완료! 구매해주셔서 감사합니다");
 		}
 	}
@@ -277,6 +279,20 @@ public class ItemManager {
 			}
 			System.out.println("------------------------");
 		}
+	}
+	
+	public void printTotalSales() {
+		um.printAllUsers();
+		int totalSales = 0;
+		for(int i=0; i<um.getUserSize(); i++) {
+			totalSales += um.getUser(i).getTotalSales();
+		}
+		if(Shop.totalSales - totalSales > 0) {
+			System.out.printf("[%d][탈퇴한 회원의 매출 : %d]\n"
+					,um.getUserSize()+1,Shop.totalSales - totalSales);
+		}
+		System.out.println("------------------------");
+		System.out.println("총  매출 : " + Shop.totalSales + "원");
 	}
 	
 }

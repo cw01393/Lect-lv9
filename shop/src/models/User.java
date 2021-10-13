@@ -43,7 +43,7 @@ public class User {
 	}
 	@Override
 	public String toString() {
-		return "[Id:" + id + "][현재까지 구매금액: " + this.totalSales + "]";
+		return "[Id:" + id + "][구매금액: " + this.totalSales + "]";
 	}
 	
 	

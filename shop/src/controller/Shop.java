@@ -7,6 +7,8 @@ public class Shop {
 	static Scanner sc = new Scanner(System.in);
 	
 	public static int log = -1;
+	public static int totalSales = 0;
+
 	private boolean isRun = true;
 	
 	private UserManager um = UserManager.instance;
@@ -25,7 +27,7 @@ public class Shop {
 			System.out.println("1.가입\n2.로그인\n100.관리자모드\n0.종료");
 		}
 		else if(Shop.log == -100){
-			System.out.println("1.아이템관리\n2.카테고리관리\n3.장바구니관리\n4.유저관리\n0.뒤로가기");
+			System.out.println("1.아이템관리\n2.카테고리관리\n3.장바구니관리\n4.유저관리\n5.총매출조회\n0.뒤로가기");
 		}
 		else {
 			System.out.println("1.쇼핑\n2.장바구니목록\n3.로그아웃\n4.회원탈퇴");
@@ -65,6 +67,9 @@ public class Shop {
 				}
 				else if(menu == 4) {
 					printUserManager();
+				}
+				else if(menu == 5) {
+					im.printTotalSales();
 				}
 				else if(menu == 0) {
 					Shop.log = -1;
