@@ -13,11 +13,10 @@ public class Unit {
 	Item armor;
 	Item ring;
 	
-	public Unit(String name, int level, int hp, int maxHp, 
+	public Unit(String name, int level, int maxHp, 
 			int att, int def, int exp) {
 		this.name = name;
 		this.level = level;
-		this.hp = hp;
 		this.maxHp = maxHp;
 		this.att = att;
 		this.def = def;
@@ -33,6 +32,13 @@ public class Unit {
 		this.def = def;
 		this.exp = exp;
 		this.party = party;
+	}
+	
+	public String getName() {
+		return this.name;
+	}
+	public boolean getParty() {
+		return this.party;
 	}
 	
 	public void setParty(boolean p) {
@@ -56,10 +62,10 @@ public class Unit {
 	public void printStatue() {
 		System.out.printf("[%s][LEVEL:%d]",this.name, this.level);
 		if(this.ring == null) {
-			System.out.printf("[HP: %d/%d]\\n", this.hp, this.maxHp);
+			System.out.printf("[HP: %d/%d]\n", this.hp, this.maxHp);
 		}
 		else {
-			System.out.printf("[HP: %d/%d+%d]\\n", this.hp, this.maxHp, this.ring.getAbility());
+			System.out.printf("[HP: %d/%d+%d]\n", this.hp, this.maxHp, this.ring.getAbility());
 		}
 		if(this.weapon == null) {
 			System.out.printf("[공격력:%d]",this.att);
@@ -73,7 +79,7 @@ public class Unit {
 		else {
 			System.out.printf("[방어력:%d+%d]",this.def, this.armor.getAbility());
 		}
-		System.out.printf("[파티여부:%b]\n",this.party);
+		System.out.printf("[파티여부:%b]\n\n",this.party);
 	}
 	
 	public void printItemStatue() {
