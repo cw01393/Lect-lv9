@@ -40,6 +40,15 @@ public class Unit {
 	public boolean getParty() {
 		return this.party;
 	}
+	public Item getWeapon() {
+		return this.weapon;
+	}
+	public Item getArmor() {
+		return this.armor;
+	}
+	public Item getRing() {
+		return this.ring;
+	}
 	
 	public void setParty(boolean p) {
 		this.party = p;

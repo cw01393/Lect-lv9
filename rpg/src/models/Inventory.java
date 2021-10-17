@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Inventory {
 
-	ArrayList<Item> inven = new ArrayList<Item>();
+	private ArrayList<Item> inven = new ArrayList<Item>();
 	
 	public Item getInven(int index) {
 		return this.inven.get(index);

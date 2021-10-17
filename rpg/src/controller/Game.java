@@ -6,6 +6,8 @@ public class Game {
 
 	private boolean isRun = true;
 	private GuildManager gm = GuildManager.instance;
+	private Shop shop = Shop.instance;
+	private InventoryManager im = InventoryManager.instance;
 	
 	public void run() {
 		setGame();
@@ -18,6 +20,8 @@ public class Game {
 	private void setGame() {
 		Player.money = 100000;
 		gm.setGuild();
+		shop.setShop();
+		
 	}
 	
 	private void printMainMenu() {
@@ -82,9 +86,11 @@ public class Game {
 			System.out.print("메뉴선택: ");
 			String sel = Player.sc.next();
 			
-			if(sel.equals("1")) {}
-			else if(sel.equals("2")) {}
-			else if(sel.equals("3")) {}
+			if(sel.equals("1") || sel.equals("2") || sel.equals("3")) {
+				shop.buyItem(sel);
+			}
+//			else if(sel.equals("2")) {}
+//			else if(sel.equals("3")) {}
 			else if(sel.equals("0")) {
 				break;
 			}
@@ -98,8 +104,12 @@ public class Game {
 			System.out.print("메뉴선택: ");
 			String sel = Player.sc.next();
 			
-			if(sel.equals("1")) {}
-			else if(sel.equals("2")) {}
+			if(sel.equals("1")) {
+				im.wearing();
+			}
+			else if(sel.equals("2")) {
+				im.sellItem();
+			}
 			else if(sel.equals("0")) {
 				break;
 			}

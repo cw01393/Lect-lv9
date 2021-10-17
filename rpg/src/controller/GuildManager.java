@@ -10,7 +10,7 @@ public class GuildManager {
 	public static GuildManager instance = new GuildManager();
 	private GuildManager(){}
 	
-	private Player pl = Player.pl;
+	private Player pl = Player.instance;
 	
 	public void setGuild() {
 		Unit temp = new Unit("호랑이", 1, 100, 10, 5, 0);
@@ -93,7 +93,7 @@ public class GuildManager {
 		return false;
 	}
 	
-	public void removeGuild() {
+	public void removeGuild() { // 추가하기 : 길드원 삭제시 착용하고 있는 아이템 다시 인벤토리로 보내기
 		printAllGuild();
 		System.out.print("삭제할 길드원 번호선택: ");
 		String sel = Player.sc.next();
