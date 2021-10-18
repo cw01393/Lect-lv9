@@ -73,6 +73,12 @@ public class Unit {
 		return this.potion;
 	}
 	
+	public void setExp(int exp) {
+		this.exp = exp;
+	}
+	public void setLevel(int level) {
+		this.level = level;
+	}
 	public void setHp(int hp) {
 		this.hp = hp;
 	}
@@ -98,7 +104,7 @@ public class Unit {
 //	}
 	
 	public void printStatue() {
-		System.out.printf("[%s][LEVEL:%d]",this.name, this.level);
+		System.out.printf("[%s][LEVEL:%d(%d)]",this.name, this.level,this.exp);
 		if(this.ring == null) {
 			System.out.printf("[HP: %d/%d]\n", this.hp, this.maxHp);
 		}

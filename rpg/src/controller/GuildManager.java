@@ -281,7 +281,10 @@ public class GuildManager {
 		Monster mon = randomMonster();
 		
 		int turn = 1;
+		System.out.printf("몬스터 [%s] 등장!\n",mon.getName());
 		while(mon.getHp() > 0) {
+			System.out.printf("몬스터 HP: %d\n",mon.getHp());
+			
 			System.out.printf("========[%d번째 턴]========\n",turn);
 			if(turn % 2 == 1) {
 				System.out.println("[1.공격][2.힐]");
@@ -292,23 +295,49 @@ public class GuildManager {
 						Unit battleUnit = selectBattleUnit(party);
 						if(battleUnit != null) {
 							System.out.printf("[%s]의 공격!\n",battleUnit.getName());
-							int attack = battleUnit.getAtt()+mon.getDef();
+							int attack = battleUnit.getAtt() - mon.getDef();
+							if(battleUnit.getWeapon() != null) {
+								attack += battleUnit.getWeapon().getAbility();
+							}
 							if(attack < 0) attack = 0;
 							int remainedHp = mon.getHp()- attack;
 							if(remainedHp > 0) {
+								System.out.printf("[%d]의 데미지를 입혔습니다\n",mon.getHp()-remainedHp);
 								mon.setHp(remainedHp);
-								System.out.println("몬스터의 남은 HP: " + mon.getHp());
+//								System.out.println("몬스터의 남은 HP: " + mon.getHp());
 							}
 							else {
+								mon.setHp(0);
 								System.out.println("몬스터 퇴치!");
+								System.out.println("경험치를 10 얻었습니다!");
+								getWinExp(party);
 							}
+							turn ++;
 							break;
 						}
 					}
-					
 				}
 				else if(sel.equals("2")) {
-					
+					while(true) {
+						Unit battleUnit = selectBattleUnit(party);
+						if(battleUnit != null) {
+							if(battleUnit.getPotion() != null) {
+								System.out.printf("[%s] 복용!\n",battleUnit.getPotion().getName());
+								int healHp = battleUnit.getHp() + battleUnit.getPotion().getAbility();
+								int maxHp = battleUnit.getMaxHp();
+								if(battleUnit.getRing() != null) {
+									maxHp += battleUnit.getRing().getAbility();
+								}
+								if(healHp > maxHp) healHp = maxHp;
+								battleUnit.setHp(healHp);
+							}
+							else {
+								System.out.println("포션이 없습니다!");
+							}
+							turn ++;
+							break;
+						}
+					}
 				}
 			}
 			else {
@@ -316,29 +345,46 @@ public class GuildManager {
 				int getAttIdx = rn.nextInt(party.size());
 				
 				Unit getAttack = party.get(getAttIdx);
-				int attack = mon.getAtt()+getAttack.getDef();
+				int attack = mon.getAtt()-getAttack.getDef();
+				if(getAttack.getArmor() != null) {
+					attack -= getAttack.getArmor().getAbility();
+				}
 				if(attack < 0) attack = 0;
-				int remainedHp = getAttack.getHp()- attack;
+				int remainedHp = getAttack.getHp() - attack;
 				if(remainedHp > 0) {
+					System.out.printf("[%s]가 [%d]의 데미지를 입었습니다\n",getAttack.getName(),attack);
 					getAttack.setHp(remainedHp);
 					System.out.printf("[%s]의 남은 HP: %d\n",getAttack.getName(),getAttack.getHp());
 				}
 				else {
-					System.out.println("[%s]의 죽음...");
+					System.out.printf("[%s]의 죽음...\n",getAttack.getName());
 					returnItem(getAttack);
 					party.remove(getAttIdx);
 					pl.guild.removeGuild(getAttack);
+					autoParty();
 				}
+				turn ++;
+			}
+		}
+	}
+	
+	private void getWinExp(ArrayList<Unit> party) {
+		for(Unit unit : party) {
+			unit.setExp(unit.getExp() + 10);
+			int maxExp = unit.getLevel()*50;
+			if(unit.getExp() >= maxExp) {
+				unit.setLevel(unit.getLevel()+1);
+				unit.setExp(unit.getExp()-maxExp);
 			}
 		}
 	}
 	
 	private Unit selectBattleUnit(ArrayList<Unit> party) {
 		for(int i=0; i<party.size(); i++) {
-			System.out.print("[" + i+1 + "]");
+			System.out.print("[" + (i+1) + "]");
 			party.get(i).printStatue();
 		}
-		System.out.println("파티원 선택: ");
+		System.out.print("파티원 선택: ");
 		String sel = Player.sc.next();
 		
 		try {
@@ -372,7 +418,7 @@ public class GuildManager {
 		
 		String name = rn.nextInt(9000)+1000 +"";
 		int maxHp = rn.nextInt(avgHp)+10;
-		int att = rn.nextInt(avgAtt)+3;
+		int att = rn.nextInt(avgAtt)+10;
 		int def = rn.nextInt(avgDef)+1;
 		
 		return new Monster(name,maxHp,att,def);

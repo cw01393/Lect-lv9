@@ -38,11 +38,13 @@ public class FileManager {
 			fw.write(data);
 			fw.close();
 			
-			file = new File(this.invenFileName);
-			fw = new FileWriter(file);
-			data = makeInvenData();
-			fw.write(data);
-			fw.close();
+			if(pl.inven.getInvenSize() > 0) {
+				file = new File(this.invenFileName);
+				fw = new FileWriter(file);
+				data = makeInvenData();
+				fw.write(data);
+				fw.close();
+			}
 			System.out.println("저장 성공");
 		} catch (IOException e) {
 			System.out.println("저장 실패");

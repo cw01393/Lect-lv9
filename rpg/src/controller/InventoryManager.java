@@ -58,11 +58,16 @@ public class InventoryManager {
 							else if(kind.equals("ring")) {
 								if(unit.getRing() == null) {
 									unit.setRingItem(item);
+									unit.setHp(unit.getHp()+item.getAbility());
 									check = true;
 								}
 								else if(unit.getRing() != item) {
 									pl.inven.addInven(unit.getRing());
+									if(unit.getHp() > unit.getMaxHp()) {
+										unit.setHp(unit.getMaxHp());
+									}
 									unit.setRingItem(item);
+									unit.setHp(unit.getHp()+item.getAbility());
 									check = true;
 								}
 							}
