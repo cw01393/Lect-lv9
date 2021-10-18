@@ -17,6 +17,7 @@ public class Unit {
 			int att, int def, int exp) {
 		this.name = name;
 		this.level = level;
+		this.hp = maxHp;
 		this.maxHp = maxHp;
 		this.att = att;
 		this.def = def;

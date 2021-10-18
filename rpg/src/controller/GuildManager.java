@@ -101,6 +101,16 @@ public class GuildManager {
 		try {
 			int delIdx = Integer.parseInt(sel)-1;
 			if(delIdx >= 0 && delIdx < pl.guild.getGuildSize()) {
+				Unit delUnit = pl.guild.getGuild(delIdx);
+				if(delUnit.getWeapon() != null) {
+					pl.inven.addInven(delUnit.getWeapon());
+				}
+				if(delUnit.getArmor() != null) {
+					pl.inven.addInven(delUnit.getArmor());
+				}
+				if(delUnit.getRing() != null) {
+					pl.inven.addInven(delUnit.getRing());
+				}
 				String delName = pl.guild.getGuild(delIdx).getName();
 				pl.guild.removeGuild(delIdx);
 				System.out.println("==========================");	
