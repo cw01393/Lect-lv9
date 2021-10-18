@@ -2,6 +2,7 @@ package controller;
 
 import java.util.Random;
 
+import models.Guild;
 import models.Player;
 import models.Unit;
 
@@ -25,7 +26,7 @@ public class GuildManager {
 		pl.guild.addGuild(temp);
 		temp = new Unit("사자", 1, 120, 11, 7, 0);
 		pl.guild.addGuild(temp);
-		for(int i=0; i<4; i++) {
+		for(int i=0; i<Guild.partySize; i++) {
 			temp = pl.guild.getGuild(i);
 			temp.setParty(true);
 		}
@@ -102,6 +103,9 @@ public class GuildManager {
 			int delIdx = Integer.parseInt(sel)-1;
 			if(delIdx >= 0 && delIdx < pl.guild.getGuildSize()) {
 				Unit delUnit = pl.guild.getGuild(delIdx);
+				if(delUnit.getParty()) {
+					autoParty();
+				}
 				if(delUnit.getWeapon() != null) {
 					pl.inven.addInven(delUnit.getWeapon());
 				}
@@ -124,6 +128,15 @@ public class GuildManager {
 		} catch (Exception e) {
 		}
 	}
+	private void autoParty() {
+		for(int i=0; i<pl.guild.getGuildSize(); i++) {
+			if(!pl.guild.getGuild(i).getParty()) {
+				pl.guild.getGuild(i).setParty(true);
+				break;
+			}
+		}
+	}
+	
 	
 	public void changeParty() {
 		int partyIdx = selectParty();

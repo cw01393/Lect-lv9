@@ -19,55 +19,61 @@ public class InventoryManager {
 			if(guildIdx != -1) {
 				Unit unit = pl.guild.getGuild(guildIdx);
 				while(true) {
-					System.out.println("==========================");
-					unit.printStatue();
-					unit.printItemStatue();
-					int itemIdx = selectItem();
-					if(itemIdx == -100) {
-						break;
+					if(pl.inven.getInvenSize() > 0) {
+						System.out.println("==========================");
+						unit.printStatue();
+						unit.printItemStatue();
+						int itemIdx = selectItem();
+						if(itemIdx == -100) {
+							break;
+						}
+						else if(itemIdx != -1) {
+							Item item = pl.inven.getInven(itemIdx);
+							
+							String kind = item.getKind();
+							
+							boolean check = false;
+							if(kind.equals("weapon")) {
+								if(unit.getWeapon() == null) {
+									unit.setWeaponItem(item);
+									check = true;
+								}
+								else if(unit.getWeapon() != item){
+									pl.inven.addInven(unit.getWeapon());
+									unit.setWeaponItem(item);
+									check = true;
+								}
+							}
+							else if(kind.equals("armor")) {
+								if(unit.getArmor() == null) {
+									unit.setArmorItem(item);
+									check = true;
+								}
+								else if(unit.getArmor() != item) {
+									pl.inven.addInven(unit.getArmor());
+									unit.setArmorItem(item);
+									check = true;
+								}
+							}
+							else if(kind.equals("ring")) {
+								if(unit.getRing() == null) {
+									unit.setRingItem(item);
+									check = true;
+								}
+								else if(unit.getRing() != item) {
+									pl.inven.addInven(unit.getRing());
+									unit.setRingItem(item);
+									check = true;
+								}
+							}
+							if(check) {
+								pl.inven.removeInven(itemIdx);
+							}
+						}
 					}
-					else if(itemIdx != -1) {
-						Item item = pl.inven.getInven(itemIdx);
-						
-						String kind = item.getKind();
-						
-						boolean check = false;
-						if(kind.equals("weapon")) {
-							if(unit.getWeapon() == null) {
-								unit.setWeaponItem(item);
-								check = true;
-							}
-							else if(unit.getWeapon() != item){
-								pl.inven.addInven(unit.getWeapon());
-								unit.setWeaponItem(item);
-								check = true;
-							}
-						}
-						else if(kind.equals("armor")) {
-							if(unit.getArmor() == null) {
-								unit.setArmorItem(item);
-								check = true;
-							}
-							else if(unit.getArmor() != item) {
-								pl.inven.addInven(unit.getArmor());
-								unit.setArmorItem(item);
-								check = true;
-							}
-						}
-						else if(kind.equals("ring")) {
-							if(unit.getRing() == null) {
-								unit.setRingItem(item);
-								check = true;
-							}
-							else if(unit.getRing() != item) {
-								pl.inven.addInven(unit.getRing());
-								unit.setRingItem(item);
-								check = true;
-							}
-						}
-						if(check) {
-							pl.inven.removeInven(itemIdx);
-						}
+					else {
+						System.out.println("인벤토리가 비어있습니다");
+						break;
 					}
 				}
 			}
@@ -118,7 +124,8 @@ public class InventoryManager {
 	private void printAllInven() {
 		System.out.println("==========[ItemList]========");
 		for(int i=0; i<pl.inven.getInvenSize(); i++) {
-			System.out.println("[" + (i+1) + "]" + pl.inven.getInven(i));
+			System.out.print("[" + (i+1) + "]");
+			pl.inven.getInven(i).printItem();
 		}
 	}
 	

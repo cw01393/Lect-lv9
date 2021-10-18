@@ -37,7 +37,7 @@ public class Shop {
 					Player.money -= buyItem.getPrice();
 					System.out.printf("[%s]를 구입했습니다\n",buyItem.getName());
 					pl.inven.addInven(buyItem);
-					System.out.println("보유 골드" + Player.money);
+					System.out.println("보유 골드: " + Player.money);
 				}
 				else {
 					System.out.println("골드부족!");
@@ -57,9 +57,8 @@ public class Shop {
 		for(int i=0; i<this.shop.size(); i++) {
 			if(kind.equals(this.shop.get(i).getKind())) {
 				Item item = this.shop.get(i);
-				System.out.println("[" + n + "]" + item);
-//				System.out.printf("[%d번][%s][능력: %d][가격: %d]\n",
-//						n,item.getName(),item.getAbility(),item.getPrice());
+				System.out.print("[" + n + "]");
+				item.printItem();
 				n ++;
 			}
 		}

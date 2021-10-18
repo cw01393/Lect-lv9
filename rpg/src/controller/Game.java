@@ -8,6 +8,7 @@ public class Game {
 	private GuildManager gm = GuildManager.instance;
 	private Shop shop = Shop.instance;
 	private InventoryManager im = InventoryManager.instance;
+	private FileManager fm = FileManager.instance;
 	
 	public void run() {
 		setGame();
@@ -43,7 +44,9 @@ public class Game {
 		else if(sel.equals("3")) {
 			inventoryMenu();
 		}
-		else if(sel.equals("4")) {}
+		else if(sel.equals("4")) {
+			fm.save();
+		}
 		else if(sel.equals("5")) {}
 		else if(sel.equals("0")) {
 			this.isRun = false;

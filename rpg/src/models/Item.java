@@ -26,13 +26,21 @@ public class Item {
 	public int getPrice() {
 		return this.price;
 	}
-	
-	@Override
-	public String toString() {
+	public void printItem() {
 		String str = "";
 		str += "[" + this.name + "]";
 		str += "[능력: " + this.ability + "]";
 		str += "[가격: " + this.price + "]";
+		System.out.println(str);
+	}
+	
+	@Override
+	public String toString() {
+		String str = "";
+		str += this.kind;
+		str += "," + this.name;
+		str += "," + this.ability;
+		str += "," + this.price;
 		return str;
 	}
 }

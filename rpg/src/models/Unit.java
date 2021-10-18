@@ -41,6 +41,24 @@ public class Unit {
 	public boolean getParty() {
 		return this.party;
 	}
+	public int getLevel() {
+		return this.level;
+	}
+	public int getHp() {
+		return this.hp;
+	}
+	public int getMaxHp() {
+		return this.maxHp;
+	}
+	public int getAtt() {
+		return this.att;
+	}
+	public int getDef() {
+		return this.def;
+	}
+	public int getExp() {
+		return this.exp;
+	}
 	public Item getWeapon() {
 		return this.weapon;
 	}
