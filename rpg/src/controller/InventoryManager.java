@@ -140,7 +140,7 @@ public class InventoryManager {
 				else if(sellIdx != -1) {
 					Item item = pl.inven.getInven(sellIdx);
 					while(true) {
-						System.out.println(item);
+						item.printItem();
 						System.out.printf("정말 판매하시겠습니까?\n",item.getName());
 						System.out.println("(세금 50%) 1)YES 2)NO");
 						String sel = Player.sc.next();

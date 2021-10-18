@@ -47,7 +47,9 @@ public class Game {
 		else if(sel.equals("4")) {
 			fm.save();
 		}
-		else if(sel.equals("5")) {}
+		else if(sel.equals("5")) {
+			fm.load();
+		}
 		else if(sel.equals("0")) {
 			this.isRun = false;
 		}

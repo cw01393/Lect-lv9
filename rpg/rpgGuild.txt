@@ -1,0 +1,13 @@
+83700
+호랑이/1/100/100/10/5/0/true
+weapon,레이피어,7,2500/weapon,레이피어,7,2500/weapon,레이피어,7,2500
+강아지/1/80/80/7/3/0/true
+weapon,철검,5,2000/null/null
+사슴/1/50/50/3/1/0/true
+null/null/null
+두더지/1/70/70/5/2/0/true
+null/null/null
+돼지/1/200/200/4/8/0/false
+null/null/null
+사자/1/120/120/11/7/0/false
+null/null/null
