@@ -332,7 +332,7 @@ public class GuildManager {
 								battleUnit.setHp(healHp);
 							}
 							else {
-								System.out.println("포션이 없습니다!");
+								System.out.println("이런! 포션이 없습니다!");
 							}
 							turn ++;
 							break;
@@ -375,6 +375,7 @@ public class GuildManager {
 			if(unit.getExp() >= maxExp) {
 				unit.setLevel(unit.getLevel()+1);
 				unit.setExp(unit.getExp()-maxExp);
+				System.out.printf("[%s] 레벨업!\n",unit.getName());
 			}
 		}
 	}
