@@ -64,6 +64,7 @@ public class FileManager {
 			str += unit.getWeapon();
 			str += "/" + unit.getArmor();
 			str += "/" + unit.getRing();
+			str += "/" + unit.getPotion();
 			str += "\n";
 		}
 		str = str.substring(0, str.length()-1);
@@ -148,16 +149,22 @@ public class FileManager {
 			pl.guild.getGuild(lastIndex).setWeaponItem(item);
 		}
 		if(!temp[1].equals("null")) {
-			String armor[] = temp[0].split(",");
+			String armor[] = temp[1].split(",");
 			Item item = makeItem(armor);
 			int lastIndex = pl.guild.getGuildSize()-1;
 			pl.guild.getGuild(lastIndex).setArmorItem(item);
 		}
 		if(!temp[2].equals("null")) {
-			String ring[] = temp[0].split(",");
+			String ring[] = temp[2].split(",");
 			Item item = makeItem(ring);
 			int lastIndex = pl.guild.getGuildSize()-1;
 			pl.guild.getGuild(lastIndex).setRingItem(item);
+		}
+		if(!temp[3].equals("null")) {
+			String potion[] = temp[3].split(",");
+			Item item = makeItem(potion);
+			int lastIndex = pl.guild.getGuildSize()-1;
+			pl.guild.getGuild(lastIndex).setPotionItem(item);
 		}
 	}
 	private Item makeItem(String temp[]) {

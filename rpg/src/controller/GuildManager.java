@@ -1,8 +1,10 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import models.Guild;
+import models.Monster;
 import models.Player;
 import models.Unit;
 
@@ -47,6 +49,13 @@ public class GuildManager {
 		
 		if(sel.equals("1")) {
 			Unit temp = randomUnit();
+			int cnt = 0;
+			for(int i=0; i<pl.guild.getGuildSize(); i++) {
+				if(pl.guild.getGuild(i).getParty()) cnt ++;
+			}
+			if(cnt < Guild.partySize) {
+				temp.setParty(true);
+			}
 			pl.guild.addGuild(temp);
 			temp.printStatue();
 			System.out.println("길드원 추가 완료!");
@@ -64,7 +73,7 @@ public class GuildManager {
 			Unit temp = null;
 			String[] n1 = { "박", "이", "김", "최", "유", "지", "오"};
 			String[] n2 = { "명", "기", "종", "민", "재", "석", "광"};
-			String[] n3 = { "수", "자", "민", "수", "석", "민", "철"};
+			String[] n3 = { "수", "자", "민", "수", "석", "진", "철"};
 			
 			String name = "";
 			name += n1[rn.nextInt(n1.length)];
@@ -74,7 +83,7 @@ public class GuildManager {
 			boolean check = checkNameDup(name);
 			if(!check) {
 				int level = 1;
-				int maxHp = rn.nextInt(80) + 20;
+				int maxHp = rn.nextInt(100) + 20;
 				int att = rn.nextInt(10)+2;
 				int def = rn.nextInt(10)+2;
 				
@@ -106,15 +115,7 @@ public class GuildManager {
 				if(delUnit.getParty()) {
 					autoParty();
 				}
-				if(delUnit.getWeapon() != null) {
-					pl.inven.addInven(delUnit.getWeapon());
-				}
-				if(delUnit.getArmor() != null) {
-					pl.inven.addInven(delUnit.getArmor());
-				}
-				if(delUnit.getRing() != null) {
-					pl.inven.addInven(delUnit.getRing());
-				}
+				returnItem(delUnit);
 				String delName = pl.guild.getGuild(delIdx).getName();
 				pl.guild.removeGuild(delIdx);
 				System.out.println("==========================");	
@@ -128,6 +129,21 @@ public class GuildManager {
 		} catch (Exception e) {
 		}
 	}
+	private void returnItem(Unit delUnit) {
+		if(delUnit.getWeapon() != null) {
+			pl.inven.addInven(delUnit.getWeapon());
+		}
+		if(delUnit.getArmor() != null) {
+			pl.inven.addInven(delUnit.getArmor());
+		}
+		if(delUnit.getRing() != null) {
+			pl.inven.addInven(delUnit.getRing());
+		}
+		if(delUnit.getPotion() != null) {
+			pl.inven.addInven(delUnit.getPotion());
+		}
+	}
+	
 	private void autoParty() {
 		for(int i=0; i<pl.guild.getGuildSize(); i++) {
 			if(!pl.guild.getGuild(i).getParty()) {
@@ -251,5 +267,114 @@ public class GuildManager {
 			pl.guild.setGuile(idx, temp);
 		}
 		System.out.println("정렬 완료");
+	}
+	
+	public void battle() {
+		Random rn = new Random();
+		
+		ArrayList<Unit> party = new ArrayList<Unit>();
+		for(int i=0; i<pl.guild.getGuildSize(); i++) {
+			if(pl.guild.getGuild(i).getParty()) {
+				party.add(pl.guild.getGuild(i));
+			}
+		}
+		Monster mon = randomMonster();
+		
+		int turn = 1;
+		while(mon.getHp() > 0) {
+			System.out.printf("========[%d번째 턴]========\n",turn);
+			if(turn % 2 == 1) {
+				System.out.println("[1.공격][2.힐]");
+				String sel = Player.sc.next();
+				
+				if(sel.equals("1")) {
+					while(true) {
+						Unit battleUnit = selectBattleUnit(party);
+						if(battleUnit != null) {
+							System.out.printf("[%s]의 공격!\n",battleUnit.getName());
+							int attack = battleUnit.getAtt()+mon.getDef();
+							if(attack < 0) attack = 0;
+							int remainedHp = mon.getHp()- attack;
+							if(remainedHp > 0) {
+								mon.setHp(remainedHp);
+								System.out.println("몬스터의 남은 HP: " + mon.getHp());
+							}
+							else {
+								System.out.println("몬스터 퇴치!");
+							}
+							break;
+						}
+					}
+					
+				}
+				else if(sel.equals("2")) {
+					
+				}
+			}
+			else {
+				System.out.println("몬스터의 공격!");
+				int getAttIdx = rn.nextInt(party.size());
+				
+				Unit getAttack = party.get(getAttIdx);
+				int attack = mon.getAtt()+getAttack.getDef();
+				if(attack < 0) attack = 0;
+				int remainedHp = getAttack.getHp()- attack;
+				if(remainedHp > 0) {
+					getAttack.setHp(remainedHp);
+					System.out.printf("[%s]의 남은 HP: %d\n",getAttack.getName(),getAttack.getHp());
+				}
+				else {
+					System.out.println("[%s]의 죽음...");
+					returnItem(getAttack);
+					party.remove(getAttIdx);
+					pl.guild.removeGuild(getAttack);
+				}
+			}
+		}
+	}
+	
+	private Unit selectBattleUnit(ArrayList<Unit> party) {
+		for(int i=0; i<party.size(); i++) {
+			System.out.print("[" + i+1 + "]");
+			party.get(i).printStatue();
+		}
+		System.out.println("파티원 선택: ");
+		String sel = Player.sc.next();
+		
+		try {
+			int idx = Integer.parseInt(sel)-1;
+			if(idx >= 0 && idx < party.size()) {
+				return party.get(idx);
+			}
+		} catch (Exception e) {
+		}
+		return null;
+	}
+	
+	private Monster randomMonster() {
+		Random rn = new Random();
+		
+		int sumHp = 0;
+		int sumAtt = 0;
+		int sumDef = 0;
+		int guildCnt = 0;
+		for(int i=0; i<pl.guild.getGuildSize(); i++) {
+			if(pl.guild.getGuild(i).getParty()) {
+				sumHp += pl.guild.getGuild(i).getMaxHp();
+				sumAtt += pl.guild.getGuild(i).getAtt();
+				sumDef += pl.guild.getGuild(i).getDef();
+				guildCnt ++;
+			}
+		}
+		int avgHp = sumHp/guildCnt;
+		int avgAtt = sumAtt/guildCnt;
+		int avgDef = sumDef/guildCnt;
+		
+		String name = rn.nextInt(9000)+1000 +"";
+		int maxHp = rn.nextInt(avgHp)+10;
+		int att = rn.nextInt(avgAtt)+3;
+		int def = rn.nextInt(avgDef)+1;
+		
+		return new Monster(name,maxHp,att,def);
 	}
 }

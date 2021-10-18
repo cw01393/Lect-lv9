@@ -28,7 +28,7 @@ public class Game {
 	private void printMainMenu() {
 		System.out.println("==========[메인메뉴]==========");
 		System.out.println("[1.길드관리][2.상점][3.인벤토리]");
-		System.out.println("[4.저장][5.로드][0.종료]");
+		System.out.println("[4.전투][5.저장][6.로드][0.종료]");
 	}
 	
 	private void selectMenu() {
@@ -45,9 +45,12 @@ public class Game {
 			inventoryMenu();
 		}
 		else if(sel.equals("4")) {
-			fm.save();
+			gm.battle();
 		}
 		else if(sel.equals("5")) {
+			fm.save();
+		}
+		else if(sel.equals("6")) {
 			fm.load();
 		}
 		else if(sel.equals("0")) {
@@ -87,15 +90,14 @@ public class Game {
 	private void shopMenu() {
 		while(true) {
 			System.out.println("==========[상점]==========");
-			System.out.println("[1.무기][2.갑옷][3.반지][0.뒤로가기]");
+			System.out.println("[1.무기][2.갑옷][3.반지][4.포션][0.뒤로가기]");
 			System.out.print("메뉴선택: ");
 			String sel = Player.sc.next();
 			
-			if(sel.equals("1") || sel.equals("2") || sel.equals("3")) {
+			if(sel.equals("1") || sel.equals("2")
+					|| sel.equals("3") || sel.equals("4")) {
 				shop.buyItem(sel);
 			}
-//			else if(sel.equals("2")) {}
-//			else if(sel.equals("3")) {}
 			else if(sel.equals("0")) {
 				break;
 			}

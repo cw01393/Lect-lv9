@@ -66,6 +66,17 @@ public class InventoryManager {
 									check = true;
 								}
 							}
+							if(kind.equals("potion")) {
+								if(unit.getPotion() == null) {
+									unit.setPotionItem(item);
+									check = true;
+								}
+								else if(unit.getPotion() != item){
+									pl.inven.addInven(unit.getPotion());
+									unit.setPotionItem(item);
+									check = true;
+								}
+							}
 							if(check) {
 								pl.inven.removeInven(itemIdx);
 							}

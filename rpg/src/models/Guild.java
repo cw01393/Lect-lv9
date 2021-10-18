@@ -27,4 +27,8 @@ public class Guild {
 	public void removeGuild(int index) {
 		this.guild.remove(index);
 	}
+	
+	public void removeGuild(Unit unit) {
+		this.guild.remove(unit);
+	}
 }

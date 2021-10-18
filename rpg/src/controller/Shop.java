@@ -23,6 +23,9 @@ public class Shop {
 		shop.add(new Item("ring", "은반지",7,3000));
 		shop.add(new Item("ring", "금반지",17,6000));
 		shop.add(new Item("ring", "다이아반지",35,20000));
+		shop.add(new Item("potion", "파란포션",10,1000));
+		shop.add(new Item("potion", "빨간포션",20,2000));
+		shop.add(new Item("potion", "하얀포션",30,3000));
 	}
 	
 	public void buyItem(String sel) {
@@ -51,6 +54,7 @@ public class Shop {
 		if(sel.equals("1")) kind = "weapon";
 		else if(sel.equals("2")) kind = "armor";
 		else if(sel.equals("3")) kind = "ring";
+		else if(sel.equals("4")) kind = "potion";
 		
 		System.out.printf("============[%s]===========\n",kind);
 		int n = 1;

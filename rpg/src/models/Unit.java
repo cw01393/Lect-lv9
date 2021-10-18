@@ -12,6 +12,7 @@ public class Unit {
 	Item weapon;
 	Item armor;
 	Item ring;
+	Item potion;
 	
 	public Unit(String name, int level, int maxHp, 
 			int att, int def, int exp) {
@@ -68,7 +69,13 @@ public class Unit {
 	public Item getRing() {
 		return this.ring;
 	}
+	public Item getPotion() {
+		return this.potion;
+	}
 	
+	public void setHp(int hp) {
+		this.hp = hp;
+	}
 	public void setParty(boolean p) {
 		this.party = p;
 	}
@@ -81,11 +88,14 @@ public class Unit {
 	public void setRingItem(Item ring) {
 		this.ring = ring;
 	}
-	public void setAllItem(Item weapon, Item armor, Item ring) {
-		this.weapon = weapon;
-		this.armor = armor;
-		this.ring = ring;
+	public void setPotionItem(Item potion) {
+		this.potion = potion;
 	}
+//	public void setAllItem(Item weapon, Item armor, Item ring) {
+//		this.weapon = weapon;
+//		this.armor = armor;
+//		this.ring = ring;
+//	}
 	
 	public void printStatue() {
 		System.out.printf("[%s][LEVEL:%d]",this.name, this.level);
@@ -128,6 +138,12 @@ public class Unit {
 		}
 		else {
 			System.out.println("[반지 : " + this.ring.getName()+ "]");
+		}		
+		if (this.potion == null) {
+			System.out.println("[포션 : 없음 ]");
+		}
+		else {
+			System.out.println("[포션 : " + this.potion.getName()+ "]");
 		}		
 	}
 }
