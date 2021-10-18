@@ -12,8 +12,8 @@ import models.Unit;
 
 public class FileManager {
 	
-	private String guildFileName = "rpgGuild.text";
-	private String invenFileName = "rpgInventory.text";
+	private String guildFileName = "rpgGuild.txt";
+	private String invenFileName = "rpgInventory.txt";
 	File file;
 	FileWriter fw;
 	FileReader fr;
