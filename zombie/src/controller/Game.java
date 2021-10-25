@@ -11,7 +11,6 @@ import model.ZombieKing;
 public class Game {
 	public Scanner sc = new Scanner(System.in);
 	
-	private int pos;
 	private boolean isRun;
 	private Hero player;
 	private ArrayList<Unit> zombie = new ArrayList<>();
@@ -26,21 +25,21 @@ public class Game {
 		setGame();
 		while(isRun) {
 			map();
+			checkEnd();
 		}
 	}
 	
 	private void setGame() {
-		this.pos = 1;
 		this.isRun = true;
-		this.player = new Hero("용사", 100, 5, 1, 2);
-		zombie.add(new Zombie("그냥좀비", 25, 5, 1, 4));
-		zombie.add(new Zombie("힘쌘좀비", 45, 10, 2, 7));
-		zombie.add(new Zombie("정예좀비", 65, 15, 3, 10));
+		this.player = new Hero("용사", 100, 5, 1, 1);
+		zombie.add(new Zombie("그냥좀비", 25, 5, 1, 3));
+		zombie.add(new Zombie("힘쌘좀비", 45, 10, 2, 6));
+		zombie.add(new Zombie("정예좀비", 65, 15, 3, 9));
 		zombie.add(new ZombieKing("좀비왕",100,20,4,12,50));
 	}
 	
 	private void map() {
-		System.out.printf("[현재 층: %d층]\n",this.pos);
+		System.out.printf("[현재 층: %d층]\n",this.player.getPos());
 		if(check() == -1) {
 			boolean select = false;
 			System.out.println("아무 것도 없다");
@@ -53,7 +52,7 @@ public class Game {
 				String sel = sc.next();
 				
 				if(sel.equals("1")) {
-					this.pos ++;
+					this.player.setPos(this.player.getPos()+1);
 					break;
 				}
 				else if(sel.equals("2") && !select) {
@@ -68,31 +67,55 @@ public class Game {
 		}
 		else {
 			fight(check());
-			this.pos ++;
+			this.player.setPos(this.player.getPos()+1);
 		}
 	}
 	
 	private int check() {
 		for(int i=0; i<this.zombie.size(); i++) {
-			if(zombie.get(i).getPos() == this.pos) return i;
+			if(zombie.get(i).getPos() == this.player.getPos()) return i;
 		}
 		return -1;
 	}
 	
 	private void fight(int index) {
+		System.out.println("좀비가 나타났다!");
 		while(true) {
+			System.out.println("-------------------------------");
+			Unit target = this.zombie.get(index);
 			this.player.print();
 			System.out.println("-------------------------------");
-			this.zombie.get(index).print();
+			target.print();
 			System.out.println("===============================");
 			
 			System.out.printf("[1]공격 [2]물약(%d개 남음)\n",this.player.getPotion());
 			String sel = sc.next();
 			if(sel.equals("1")) {
-				
+				this.player.attack(target);
+				System.out.println("-------------------------------");
+				if(target.getHp() > 0) {
+					target.attack(player);
+					if(this.player.getHp() < 0) {
+						System.out.println("PLAYER의 죽음...");
+						this.isRun = false;
+						break;
+					}
+				}
+				else {
+					System.out.printf("%s를 물리쳤습니다!\n",target.getName());
+					zombie.remove(index);
+					break;
+				}
 			}
 			else if(sel.equals("2")) {
-				
+				this.player.drinkPotion();
+				System.out.println("-------------------------------");
+				target.attack(player);
+				if(this.player.getHp() < 0) {
+					System.out.println("PLAYER의 죽음...");
+					this.isRun = false;
+					break;
+				}
 			}
 		}
 	}
@@ -116,7 +139,15 @@ public class Game {
 		else {
 			int r = Unit.rn.nextInt(3)+2;
 			this.player.setDef(this.player.getDef() + r);
-			System.out.printf("공격력이 %d만큼 증가했습니다!\n",r);
+			System.out.printf("방어력이 %d만큼 증가했습니다!\n",r);
+		}
+	}
+	
+	private void checkEnd() {
+		if(this.zombie.size() == 0) {
+			System.out.println("좀비를 모두 물리쳤습니다!");
+			System.out.println("GAME CLEAR!");
+			this.isRun = false;
 		}
 	}
 }

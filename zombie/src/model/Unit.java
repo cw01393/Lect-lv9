@@ -56,10 +56,10 @@ public class Unit implements Attackable{
 	public void attack(Unit target) {
 		int damage = (this.att-target.def)*(rn.nextInt(150)+50)/100;
 		if(damage < 0) damage = 0;
-		System.out.printf("[%s의 공격]\n",this.name);
-		System.out.printf("[%d의 데미지를 입혔습니다!]\n",damage);
+		System.out.printf("[%s]의 공격\n",this.name);
+		System.out.printf("[%d]의 데미지를 입혔습니다!]\n",damage);
 		target.setHp(target.getHp()-damage);
-		System.out.printf("[%s의 남은 HP: %d]\n",target.name, target.hp);
+		System.out.printf("[%s]의 남은 [HP: %d]\n",target.name, target.hp);
 	}
 	
 	public void print() {

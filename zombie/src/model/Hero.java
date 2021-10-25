@@ -12,11 +12,11 @@ public class Hero extends Unit{
 	
 	public void drinkPotion() {
 		if(this.potion > 0) {
-			this.potion --;
 			System.out.println("체력이 100 회복되었습니다!");
 			int hp = this.getHp() + 100;
 			if(hp > this.getMaxHp()) hp = this.getMaxHp();
 			this.setHp(hp);
+			this.potion --;
 		}
 		else {
 			System.out.println("물약이 없습니다");
@@ -28,11 +28,16 @@ public class Hero extends Unit{
 		if(target instanceof ZombieKing) {
 			if(((ZombieKing) target).getshield() > 0) {
 				System.out.printf("%s의 공격!\n",this.getName());
-				System.out.println("쉴드 -1 !");
-				((ZombieKing) target).setshield(((ZombieKing) target).getshield()-1);
+				int damage = (this.getAtt() - target.getDef())*(Unit.rn.nextInt(150)+50)/100;
+				if(damage < 0) damage = 0;
+				System.out.println("쉴드 공격!");
+				System.out.printf("[%d]의 데미지를 입었습니다!\n",damage);
+				((ZombieKing) target).setshield(((ZombieKing) target).getshield()-damage);
 				
-				if(((ZombieKing) target).getshield() == 0) {
+				if(((ZombieKing) target).getshield() <= 0) {
 					System.out.println("쉴드가 모두 깨졌다!");
+					int hp = ((ZombieKing) target).getshield() + target.getHp();
+					target.setHp(hp);
 					System.out.printf("[%s의 남은 HP: %d]\n",target.getName(),target.getHp());
 				}
 			}

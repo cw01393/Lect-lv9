@@ -20,9 +20,9 @@ public class ZombieKing extends Unit{
 			if(damage <= 0) damage = 1;
 			damage*=2;
 			System.out.println("[" + this.getName() + "의 필살기!]");
-			System.out.printf("[%d의 데미지를 입었습니다!\n",damage);
+			System.out.printf("[%d]의 데미지를 입었습니다!\n",damage);
 			target.setHp(target.getHp()-damage);
-			System.out.printf("[%s의 남은 HP: %d]\n",target.getName(), target.getHp());
+			System.out.printf("[%s]의 남은 [HP: %d]\n",target.getName(), target.getHp());
 		}
 		else {
 			super.attack(target);
