@@ -3,11 +3,13 @@ package model;
 public class User {
 
 	private String name;
+	private String pw;
 	private int code;
 	private String major;
 	
-	public User(String name, int code, String major) {
+	public User(String name, String pw, int code, String major) {
 		this.name = name;
+		this.pw = pw;
 		this.code = code;
 		this.major = major;
 	}
