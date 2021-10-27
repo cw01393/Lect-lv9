@@ -25,6 +25,6 @@ public class User {
 	}
 	
 	public void print() {
-		System.out.printf("[ÀÌ¸§][%s] [ÇĞ¹ø][%d] [Àü°ø][%s]\n",this.name, this.code, this.major);
+		System.out.printf("[ì´ë¦„][%s] [í•™ë²ˆ][%d] [ì „ê³µ][%s]\n",this.name, this.code, this.major);
 	}
 }

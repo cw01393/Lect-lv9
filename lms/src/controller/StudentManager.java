@@ -39,9 +39,9 @@ public class StudentManager {
 	}
 	
 	public void setProfessor() {
-		this.group.add(new Professor("±èÃ¶¼ö","0000",randomCode(),"±â°è°øÇĞ"));
-		this.group.add(new Professor("¹Ú¹Î±Ô","0000",randomCode(),"°æ¿µ"));
-		this.group.add(new Professor("ÃÖ¿µÇÑ","0000",randomCode(),"±¹¾î±¹¹®"));
+		this.group.add(new Professor("ë°•ë¯¼ê·œ","0000",randomCode(),"ê²½ì˜"));
+		this.group.add(new Professor("ìµœì •í•œ","0000",randomCode(),"ê¸°ê³„ê³µí•™"));
+		this.group.add(new Professor("ì£¼ì§€í›ˆ","0000",randomCode(),"êµ­ì–´êµ­ë¬¸"));
 	}
 	
 	private int randomCode() {

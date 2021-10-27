@@ -28,7 +28,7 @@ public class LMS {
 	}
 	
 	private void startMenu() {
-		System.out.println("[1] ·Î±×ÀÎ\n[2] °¡ÀÔ");
+		System.out.println("[1]ë¡œê·¸ì¸ [2]íšŒì›ê°€ì…");
 	}
 	
 }

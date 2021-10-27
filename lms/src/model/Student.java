@@ -26,7 +26,7 @@ public class Student extends User{
 			super.print();
 			int n = 1;
 			for(Subject s : this.subs) {
-				System.out.printf("§§[%d][%s][%d¡°]\n",n,s.getTitle(),s.getScore());
+				System.out.printf("„Ñ¥[%d][%s][%dÏ†ê]\n",n,s.getTitle(),s.getScore());
 				n++;
 			}
 		}
