@@ -93,7 +93,12 @@ public class BattleStage extends Stage {
 				break;
 			}
 			else if(sel.equals("2")) {
-				player.skill(tempMonster);
+				if(player.getName().equals("힐러")) {
+					player.skill(tempPlayer);
+				}
+				else {
+					player.skill(tempMonster);
+				}
 				break;
 			}
 		}
@@ -101,6 +106,10 @@ public class BattleStage extends Stage {
 	private void monsterAttack(int index) {
 		if(this.tempPlayer.size() == 0) return;
 		Unit monster = this.tempMonster.get(index);
+		if(!monster.getState().equals("노말")) {
+			monster.setState("노말");
+			return;
+		}
 		int rNum = Unit.rn.nextInt(100);
 		
 		if(rNum > 74) {

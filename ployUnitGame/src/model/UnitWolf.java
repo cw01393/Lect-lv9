@@ -17,22 +17,19 @@ public class UnitWolf extends Unit{
 		setPower(power/2);
 		for(Unit u : target) {
 			super.fight(u);
-			if(u.getHp() <= 0) {
-				target.remove(u);
+		}
+		for(int i=0; i<target.size(); i++) {
+			if(target.get(i).getHp() <= 0) {
+				target.remove(i);
+				i=0;
 			}
 		}
+//		for(Unit u : target) {
+//			if(u.getHp() <= 0) {
+//				target.remove(u);
+//			}
+//		}
 		setPower(power);
 	}
 
-//	@Override
-//	public void fight(Unit target) {
-//		int num = Unit.rn.nextInt(100);
-//		
-//		if(num > 74) {
-//			skill(target);
-//		}
-//		else {
-//			super.fight(target);
-//		}
-//	}
 }
