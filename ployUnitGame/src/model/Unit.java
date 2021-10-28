@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public abstract class Unit {
@@ -44,6 +45,9 @@ public abstract class Unit {
 	public void setState(String state) {
 		this.state = state;
 	}
+	public void setPower(int power) {
+		this.power = power;
+	}
 	public void allSet(int max, int power) {
 		this.maxHp = max;
 		this.hp = max;
@@ -51,7 +55,11 @@ public abstract class Unit {
 	}
 	
 	public void printInfo() {
-		System.out.printf("[%s] [%d/%d] [%d]\n",this.name,this.hp,this.maxHp,this.power);
+		System.out.printf("[%s] [%d/%d] [%d]",this.name,this.hp,this.maxHp,this.power);
+		if(!this.state.equals("노말")) {
+			System.out.printf(" [%s]",this.state);
+		}
+		System.out.println();
 	}
 	
 	public void fight(Unit target) {
@@ -60,9 +68,10 @@ public abstract class Unit {
 		
 		System.out.printf("[%s]가 [%s]에게 %d의 데미지를 입혔습니다!\n",this.name, target.name, attack);
 		if(target.hp <= 0) {
+			target.hp = 0;
 			System.out.printf("[%s]가 [%s]를 처치하였습니다!\n",this.name,target.name);
 		}
 	}
 	
-	public abstract void skill();
+	public abstract void skill(ArrayList<Unit> target);
 }

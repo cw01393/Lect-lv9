@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class UnitWolf extends Unit{
 
 	public UnitWolf() {
@@ -7,19 +9,30 @@ public class UnitWolf extends Unit{
 	}
 	
 	@Override
-	public void skill() {
-		System.out.println("적 전체에게 공격력의 절반 데미지 ");
+	public void skill(ArrayList<Unit> target) {
+		System.out.printf("[%s]의 스킬발동!\n",getName());
+		System.out.println(" >> 적 전체에게 공격력의 절반 데미지");
+		
+		int power = getPower();
+		setPower(power/2);
+		for(Unit u : target) {
+			super.fight(u);
+			if(u.getHp() <= 0) {
+				target.remove(u);
+			}
+		}
+		setPower(power);
 	}
 
-	@Override
-	public void fight(Unit target) {
-		int num = Unit.rn.nextInt(100);
-		
-		if(num > 74) {
-			skill();
-		}
-		else {
-			super.fight(target);
-		}
-	}
+//	@Override
+//	public void fight(Unit target) {
+//		int num = Unit.rn.nextInt(100);
+//		
+//		if(num > 74) {
+//			skill(target);
+//		}
+//		else {
+//			super.fight(target);
+//		}
+//	}
 }

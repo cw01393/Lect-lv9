@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class UnitPlayer extends Unit{
 
 	public UnitPlayer(String name, int max, int power) {
@@ -7,8 +9,11 @@ public class UnitPlayer extends Unit{
 	}
 	
 	@Override
-	public void skill() {
+	public void skill(ArrayList<Unit> target) {
 		
+//		if(select.getHp() <= 0) {
+//			target.remove(select);
+//		}
 	}
 
 }
