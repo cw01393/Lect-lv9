@@ -24,6 +24,7 @@ public class UnitWolf extends Unit{
 			enemy.remove(u);
 		}
 		else {
+			System.out.printf(" >> [%s] 기절\n",u.getName());
 			u.setState("기절");
 		}
 		super.setAtt(power);

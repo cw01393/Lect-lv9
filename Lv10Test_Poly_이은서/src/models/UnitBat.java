@@ -21,6 +21,7 @@ public class UnitBat extends Unit{
 			enemy.remove(u);
 		}
 		else {
+			System.out.printf(" >> [%s] 침묵\n",u.getName());
 			u.setState("침묵");
 		}
 	}

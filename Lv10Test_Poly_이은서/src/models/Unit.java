@@ -67,7 +67,7 @@ public abstract class Unit {
 		if(enemy.hp < 0) enemy.hp = 0;
 		System.out.printf("[%s]가 [%s]에게 %d의 데미지를 입혔습니다\n",this.name,enemy.name,damage);
 		if(enemy.hp == 0) {
-			System.out.printf("[%s]가 [%s]를 처치하였습니다",this.name,enemy.name);
+			System.out.printf("[%s]가 [%s]를 처치하였습니다\n",this.name,enemy.name);
 		}
 	}
 	

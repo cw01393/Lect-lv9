@@ -36,6 +36,7 @@ public class UnitPlayer extends Unit{
 			enemy.remove(u);
 		}
 		else {
+			System.out.printf(" >> [%s] 기절\n",u.getName());
 			u.setState("기절");
 		}
 		super.setAtt(power);
@@ -63,7 +64,7 @@ public class UnitPlayer extends Unit{
 			int healHp = unit.getHp()+100;
 			if(healHp > unit.getMaxHp()) healHp = unit.getMaxHp();
 			unit.setHp(healHp);
-			System.out.printf("[%s] %d만큼 HP회복\n",unit.getName(), healHp);
+			System.out.printf("[%s] 100만큼 HP회복\n",unit.getName());
 		}
 	}
 

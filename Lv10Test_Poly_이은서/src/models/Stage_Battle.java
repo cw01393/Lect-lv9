@@ -14,6 +14,7 @@ public class Stage_Battle extends Stage{
 	
 	@Override
 	public void setting() {
+		uc.ClearMon();
 		uc.setMonster();
 		this.tempPlayer.clear();
 		this.tempMonster.clear();
@@ -32,7 +33,13 @@ public class Stage_Battle extends Stage{
 		playerAttack();
 		System.out.println("===================");
 		monsterAttack();
-		if(this.tempMonster.size() == 0 || this.tempPlayer.size() == 0) {
+		if(this.tempMonster.size() == 0) {
+			System.out.println("BATTLE WIN!");
+			GameController.next = "LOBBY";
+			return false;
+		}
+		if(this.tempPlayer.size() == 0) {
+			System.out.println("BATTLE LOSE");
 			GameController.next = "";
 			return false;
 		}
@@ -53,26 +60,28 @@ public class Stage_Battle extends Stage{
 	private void playerAttack() {
 		System.out.println("==== PLAYER ATTACK ====");
 		for(Unit unit : this.tempPlayer) {
-			while(!setBack(unit)) {
-				System.out.printf("[%s] [1.공격] [2.스킬]\n",unit.getName());
-				String sel = Main.sc.next();
-				
-				if(sel.equals("1")) {
-					int idx = Main.rn.nextInt(this.tempMonster.size());
-					unit.attack(this.tempMonster.get(idx));
-					if(this.tempMonster.get(idx).getHp() == 0) {
-						this.tempMonster.remove(idx);
+			if(this.tempMonster.size() > 0) {
+				while(!setBack(unit)) {
+					System.out.printf("[%s] [1.공격] [2.스킬]\n",unit.getName());
+					String sel = Main.sc.next();
+					
+					if(sel.equals("1")) {
+						int idx = Main.rn.nextInt(this.tempMonster.size());
+						unit.attack(this.tempMonster.get(idx));
+						if(this.tempMonster.get(idx).getHp() == 0) {
+							this.tempMonster.remove(idx);
+						}
+						break;
 					}
-					break;
-				}
-				else if(sel.equals("2")) {
-					if(unit.getName().equals("힐러")) {
-						unit.skill(tempPlayer);
+					else if(sel.equals("2")) {
+						if(unit.getName().equals("힐러")) {
+							unit.skill(tempPlayer);
+						}
+						else {
+							unit.skill(tempMonster);
+						}
+						break;
 					}
-					else {
-						unit.skill(tempMonster);
-					}
-					break;
 				}
 			}
 		}
@@ -82,7 +91,7 @@ public class Stage_Battle extends Stage{
 			return false;
 		}
 		else {
-			System.out.printf("[%s] 기절중!\n",unit.getName());
+			System.out.printf("[%s] %s중!\n",unit.getName(),unit.getState());
 			unit.setState("노말");
 			return true;
 		}
@@ -90,16 +99,18 @@ public class Stage_Battle extends Stage{
 	
 	private void monsterAttack() {
 		for(Unit unit : this.tempMonster) {
-			if(!setBack(unit)) {
-				int rNum = Main.rn.nextInt(100);
-				if(rNum > 74) {
-					unit.skill(tempPlayer);
-				}
-				else {
-					int rIdx = Main.rn.nextInt(this.tempPlayer.size());
-					unit.attack(this.tempPlayer.get(rIdx));
-					if(this.tempMonster.get(rIdx).getHp() == 0) {
-						this.tempMonster.remove(rIdx);
+			if(this.tempPlayer.size() > 0) {
+				if(!setBack(unit)) {
+					int rNum = Main.rn.nextInt(100);
+					if(rNum > 74) {
+						unit.skill(tempPlayer);
+					}
+					else {
+						int rIdx = Main.rn.nextInt(this.tempPlayer.size());
+						unit.attack(this.tempPlayer.get(rIdx));
+						if(this.tempPlayer.get(rIdx).getHp() == 0) {
+							this.tempPlayer.remove(rIdx);
+						}
 					}
 				}
 			}
