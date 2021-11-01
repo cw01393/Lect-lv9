@@ -3,9 +3,9 @@ package controller;
 import java.util.Random;
 import java.util.Scanner;
 
-// 시작 18:07 (21.11.01)
-// 종료 
-// 소요 
+// 시작  18:07
+// 종료  21:41
+// 소요  03:34
 
 public class Main {
 
