@@ -146,6 +146,7 @@ class PushPanel extends JPanel implements MouseListener{
 			p.setY(25);
 		}
 	}
+	
 	private void goDown() {
 		Block p = this.block[0];
 		Block b = this.block[1]; // block
