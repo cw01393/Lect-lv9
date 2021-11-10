@@ -157,50 +157,37 @@ class SnakeGame extends JPanel implements KeyListener,ActionListener{
 		}
 	}
 	
-	private void goLeft() {
-		
+	private void moving() {
 		for(int i=this.snake.size()-1; i>0; i--) {
 			SnakeRect now = this.snake.get(i);
 			SnakeRect past = this.snake.get(i-1);
 			now.setX(past.getX());
 			now.setY(past.getY());
 		}
+	}
+	private void goLeft() {
+		moving();
 		SnakeRect s1 = this.snake.get(0);
 		checkItem(s1.getX()-SIZE,s1.getY());
 		s1.setX(s1.getX()-SIZE);
 	}
 	
 	private void goDown() {
-		for(int i=this.snake.size()-1; i>0; i--) {
-			SnakeRect now = this.snake.get(i);
-			SnakeRect past = this.snake.get(i-1);
-			now.setX(past.getX());
-			now.setY(past.getY());
-		}
+		moving();
 		SnakeRect s1 = this.snake.get(0);
 		checkItem(s1.getX(),s1.getY()+SIZE);
 		s1.setY(s1.getY()+SIZE);
 	}
 	
 	private void goRight() {
-		for(int i=this.snake.size()-1; i>0; i--) {
-			SnakeRect now = this.snake.get(i);
-			SnakeRect past = this.snake.get(i-1);
-			now.setX(past.getX());
-			now.setY(past.getY());
-		}
+		moving();
 		SnakeRect s1 = this.snake.get(0);
 		checkItem(s1.getX()+SIZE,s1.getY());
 		s1.setX(s1.getX()+SIZE);
 	}
 	
 	private void goUp() {
-		for(int i=this.snake.size()-1; i>0; i--) {
-			SnakeRect now = this.snake.get(i);
-			SnakeRect past = this.snake.get(i-1);
-			now.setX(past.getX());
-			now.setY(past.getY());
-		}
+		moving();
 		SnakeRect s1 = this.snake.get(0);
 		checkItem(s1.getX(),s1.getY()-SIZE);
 		s1.setY(s1.getY()-SIZE);
