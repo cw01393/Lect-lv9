@@ -245,19 +245,19 @@ class SnakeGame extends JPanel implements KeyListener,ActionListener{
 		SnakeRect temp = new SnakeRect(tail.getX(),tail.getY(),tail.getW(),tail.getH());
 		temp.setC(tail.getC());
 		
-		if(e.getKeyCode() == e.VK_LEFT && !check(e.VK_LEFT)
+		if(e.getKeyCode() == e.VK_LEFT && !check(e.getKeyCode())
 				&& this.snake.get(0).getX() > frameX) {
 			goLeft();
 		}
-		else if(e.getKeyCode() == e.VK_DOWN && !check(e.VK_DOWN)
+		else if(e.getKeyCode() == e.VK_DOWN && !check(e.getKeyCode())
 				&& this.snake.get(0).getY() < frameY + SIZE*9) {
 			goDown();
 		}
-		else if(e.getKeyCode() == e.VK_RIGHT && !check(e.VK_RIGHT)
+		else if(e.getKeyCode() == e.VK_RIGHT && !check(e.getKeyCode())
 				&& this.snake.get(0).getX() < frameX + SIZE*9) {
 			goRight();
 		}
-		else if(e.getKeyCode() == e.VK_UP && !check(e.VK_UP)
+		else if(e.getKeyCode() == e.VK_UP && !check(e.getKeyCode())
 				&& this.snake.get(0).getY() > frameY) {
 			goUp();
 		}
