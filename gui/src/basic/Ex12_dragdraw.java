@@ -59,7 +59,8 @@ class DrawPanel extends JPanel implements MouseListener, MouseMotionListener, Ke
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
-		g.setColor(Color.blue);
+		if(this.isDrawing) g.setColor(Color.gray);
+		else g.setColor(Color.blue);
 		g.drawRect(this.rect.getX(), this.rect.getY(), this.rect.getW(), this.rect.getH());
 		
 		requestFocusInWindow();
