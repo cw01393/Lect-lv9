@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 class Nemo2 {
 	int x,y,w,h;
@@ -38,7 +37,7 @@ class Nemo2 {
 	}
 }
 
-class DrawPanel extends JPanel implements MouseListener, MouseMotionListener, KeyListener{
+class DrawPanel extends MyUtil implements MouseListener, MouseMotionListener, KeyListener{
 	
 	private ArrayList<Nemo2> rectGroup = new ArrayList<Nemo2>();
 	private Nemo2 rect = new Nemo2();
@@ -46,8 +45,6 @@ class DrawPanel extends JPanel implements MouseListener, MouseMotionListener, Ke
 	
 	private int startX;
 	private int startY;
-	private int nowX;
-	private int nowY;
 	private boolean isDrawing;
 	private boolean shiftKey;
 	
@@ -88,85 +85,26 @@ class DrawPanel extends JPanel implements MouseListener, MouseMotionListener, Ke
 		repaint();
 	}
 	
-	private void drawDownRight() { //this.nowX > this.startX && this.nowY > this.startY
-		int w = this.nowX - this.startX;
-		int h = this.nowY - this.startY;
-		if(this.shiftKey) {
-			w = w >= h ? w : h;
-			h = w >= h ? w : h;
-		}
-		int x = this.startX;
-		int y = this.startY;
-			this.rect = new Nemo2(x, y, w, h);
-	}
-	private void drawUpRight() { // this.nowX > this.startX && this.nowY < this.startY
-		int w = this.nowX - this.startX;
-		int h = this.startY - this.nowY;
-		if(this.shiftKey) {
-			w = w >= h ? w : h;
-			h = w >= h ? w : h;
-		}
-		int x = this.startX;
-		int y = this.startY - h;
-		this.rect = new Nemo2(x, y, w, h);
-	}
-	private void drawDownLeft() { // this.nowX < this.startX && this.nowY > this.startY
-		int w = this.startX - this.nowX;
-		int h = this.nowY - this.startY;
-		if(this.shiftKey) {
-			w = w >= h ? w : h;
-			h = w >= h ? w : h;
-		}
-		int x = this.startX - w;
-		int y = this.startY;
-		this.rect = new Nemo2(x, y, w, h);
-	}
-	private void drawUpLeft() { // this.nowX < this.startX && this.nowY < this.startY
-		int w = this.startX - this.nowX;
-		int h = this.startY - this.nowY;
-		if(this.shiftKey) {
-			w = w >= h ? w : h;
-			h = w >= h ? w : h;
-		}
-		int x = this.startX - w;
-		int y = this.startY - h;
-		this.rect = new Nemo2(x, y, w, h);
-	}
-
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		this.nowX = e.getX();
-		this.nowY = e.getY();
-		if(this.isDrawing) {
-			if(this.nowX > this.startX && this.nowY > this.startY) {
-				drawDownRight();
-			}
-			else if(this.nowX > this.startX && this.nowY < this.startY) {
-				drawUpRight();
-			}
-			else if(this.nowX < this.startX && this.nowY > this.startY) {
-				drawDownLeft();
-			}
-			else if(this.nowX < this.startX && this.nowY < this.startY) {
-				drawUpLeft();
-			}
+		int x = e.getX();
+		int y = e.getY();
+		
+		int w = Math.abs(x - startX);
+		int h = Math.abs(y - startY);
+		
+		if(this.shiftKey) {
+			w = w >= h ? w : h;
+			h = w >= h ? w : h;
 		}
-	}
-
-	@Override
-	public void mouseMoved(MouseEvent e) {
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
+		
+		int rX = startX;
+		int rY = startY;
+		
+		if(x < startX) rX = startX - w;
+		if(y < startY) rY = startY - h;
+		
+		this.rect = new Nemo2(rX, rY, w, h);
 	}
 
 	@Override
@@ -199,10 +137,6 @@ class DrawPanel extends JPanel implements MouseListener, MouseMotionListener, Ke
 		this.shiftKey = this.shiftKey ? false : this.shiftKey;
 	}
 
-	@Override
-	public void keyTyped(KeyEvent e) {
-	}
-	
 	private void resetDraw() {
 		this.rect = new Nemo2();
 		this.rectGroup.clear();
