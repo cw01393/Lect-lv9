@@ -44,6 +44,7 @@ class GrimBoard extends MyUtil{
 	
 	private ArrayList<GrimRect> rects = new ArrayList<GrimRect>();
 	private ArrayList<GrimRect> circle = new ArrayList<GrimRect>();
+	private ArrayList<GrimRect> triangle = new ArrayList<GrimRect>();
 	
 	private GrimRect rect = null;
 	private int startX, startY;
@@ -85,6 +86,25 @@ class GrimBoard extends MyUtil{
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
+
+		// sample triangle
+		// g.drawPolygon(int[], int[], int)
+		// 1. x좌표의 배열
+		// 2. y좌표의 배열
+		// 3. 꼭지점 개수
+		
+//		int[] xx = new int[3];
+//		int[] yy = new int[3];
+//		xx[0] = 100;
+//		yy[0] = 100;
+//		xx[1] = 150;
+//		yy[1] = 200;
+//		xx[2] = 50;
+//		yy[2] = 200;
+//		
+//		g.setColor(Color.green);
+//		g.drawPolygon(xx, yy, 3);
+		
 		if(this.rect != null) {
 			GrimRect r = this.rect;
 			
@@ -94,6 +114,11 @@ class GrimBoard extends MyUtil{
 			}
 			else if(this.shape == CIR) {
 				g.drawRoundRect(r.getX(), r.getY(), r.getW(), r.getH(), r.getW(), r.getH());
+			}
+			else if(this.shape == TRI) {
+				int[] xx = {r.getX(), r.getX()+r.getW(), r.getX()+r.getW()/2};
+				int[] yy = {r.getY()+r.getH(), r.getY()+r.getH(), r.getY()};
+				g.drawPolygon(xx,yy,3);
 			}
 		}
 		
@@ -108,6 +133,13 @@ class GrimBoard extends MyUtil{
 			GrimRect r = this.circle.get(i);
 			g.setColor(r.getC());
 			g.drawRoundRect(r.getX(), r.getY(), r.getW(), r.getH(),r.getW(), r.getH());
+		}
+		for(int i=0; i<this.triangle.size(); i++) {
+			GrimRect r = this.triangle.get(i);
+			g.setColor(r.getC());
+			int[] xx = {r.getX(), r.getX()+r.getW(), r.getX()+r.getW()/2};
+			int[] yy = {r.getY()+r.getH(), r.getY()+r.getH(), r.getY()};
+			g.drawPolygon(xx,yy,3);
 		}
 		
 		requestFocusInWindow();
@@ -150,7 +182,9 @@ class GrimBoard extends MyUtil{
 			else if(this.shape == CIR) {
 				this.circle.add(this.rect);
 			}
-			
+			else if(this.shape == TRI) {
+				this.triangle.add(this.rect);
+			}
 			this.rect = null;
 		}
 	}
