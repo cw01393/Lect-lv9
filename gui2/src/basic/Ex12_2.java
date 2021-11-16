@@ -116,8 +116,15 @@ class GrimBoard extends MyUtil{
 				g.drawRoundRect(r.getX(), r.getY(), r.getW(), r.getH(), r.getW(), r.getH());
 			}
 			else if(this.shape == TRI) {
-				int[] xx = {r.getX(), r.getX()+r.getW(), r.getX()+r.getW()/2};
-				int[] yy = {r.getY()+r.getH(), r.getY()+r.getH(), r.getY()};
+				int[] xx = new int[3];
+				int[] yy = new int[3];
+				xx[0] = r.getX();
+				yy[0] = r.getY();
+				xx[1] = r.getX() - r.getW()/2;
+				yy[1] = r.getY() + r.getH();
+				xx[2] = r.getX() + r.getW()/2;
+				yy[2] = r.getY() + r.getH();
+				
 				g.drawPolygon(xx,yy,3);
 			}
 		}
@@ -137,8 +144,8 @@ class GrimBoard extends MyUtil{
 		for(int i=0; i<this.triangle.size(); i++) {
 			GrimRect r = this.triangle.get(i);
 			g.setColor(r.getC());
-			int[] xx = {r.getX(), r.getX()+r.getW(), r.getX()+r.getW()/2};
-			int[] yy = {r.getY()+r.getH(), r.getY()+r.getH(), r.getY()};
+			int[] xx = {r.getX(), r.getX()-r.getW()/2, r.getX()+r.getW()/2};
+			int[] yy = {r.getY(), r.getY()+r.getH(), r.getY() + r.getH()};
 			g.drawPolygon(xx,yy,3);
 		}
 		
@@ -195,8 +202,8 @@ class GrimBoard extends MyUtil{
 			int x = e.getX();
 			int y = e.getY();
 			
-			int w = Math.abs(x - startX); // 절대값으로 초기화
-			int h = Math.abs(y - startY);
+			int w = this.shape == TRI ? x - startX : Math.abs(x - startX); // 절대값으로 초기화
+			int h = this.shape == TRI ? y - startY : Math.abs(y - startY);
 			
 			if(this.shift) {
 				w = h;
@@ -205,8 +212,10 @@ class GrimBoard extends MyUtil{
 			int rX = startX;
 			int rY = startY;
 			
-			if(x < startX) rX = startX - w;
-			if(y < startY) rY = startY - h;
+			if(this.shape != TRI) {
+				if(x < startX) rX = startX - w;
+				if(y < startY) rY = startY - h;
+			}
 			
 			this.rect = new GrimRect(rX, rY, w, h, Color.red);
 		}
