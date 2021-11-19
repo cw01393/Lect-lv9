@@ -1,6 +1,8 @@
 package game;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 
@@ -12,12 +14,12 @@ public class ContentSample extends MyUtil{
 	
 	private final int XSIZE = 8;
 	private final int YSIZE = 9;
-	private final int WIDTH = 65;
-	private final int HEIGHT = 65;
+	private final int WIDTH = 60;
+	private final int HEIGHT = 60;
 	private final int GOALCOUNT = 7;
 	
 	private Box[][] map = new Box[YSIZE][XSIZE];
-	private JButton reset = new JButton();
+	private JButton reset = new JButton("reset");
 
 	private Box player;
 	private int pX;
@@ -39,7 +41,12 @@ public class ContentSample extends MyUtil{
 		setPlayer();
 		setButton();
 	}
-	private void setButton() {}
+	private void setButton() {
+		this.reset.setBounds(490,20,80,30);
+		this.reset.setBackground(Color.white);
+		this.reset.addActionListener(this);
+		add(this.reset);
+	}
 	
 	private void setPlayer() {
 		this.pX = 2;
@@ -98,6 +105,23 @@ public class ContentSample extends MyUtil{
 			}
 			else {
 				b.setState(b.BOX);
+			}
+		}
+	}
+	
+	private void reset() {
+		setMap();
+		setGoal();
+		setBox();
+		setPlayer();
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() instanceof JButton) {
+			JButton target = (JButton) e.getSource();
+			if(target == this.reset) {
+				reset();
 			}
 		}
 	}
