@@ -81,6 +81,7 @@ public class McDonaldPanel extends MyUtil{
 		}
 		
 		this.payment.setBounds(270, 590, 200, 60);
+//		this.payment.image
 		add(this.payment);
 	}
 	
