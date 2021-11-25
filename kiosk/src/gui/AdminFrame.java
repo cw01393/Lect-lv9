@@ -23,11 +23,9 @@ public class AdminFrame extends JFrame{
 	public void changePanel() {
 		this.getContentPane().removeAll();
 		this.getContentPane().add(this.settingPanel);
-//		this.setContentPane(new AdminPanel());
 		revalidate();
 		repaint();
 		
-//		this.settingPanel.run();
 	}
 	
 }

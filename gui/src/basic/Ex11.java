@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -41,7 +42,7 @@ class MovingRect{
 
 class MovingPanel extends JPanel implements MouseMotionListener,MouseListener{
 	private final int SIZE = 50; 
-	private MovingRect nemo = new MovingRect(200,200,SIZE,SIZE);
+	private MovingRect nemo;
 	private boolean drag;
 	private int x = -1;
 	private int y = -1;
@@ -52,9 +53,15 @@ class MovingPanel extends JPanel implements MouseMotionListener,MouseListener{
 		setBackground(Color.white);
 		addMouseMotionListener(this);
 		addMouseListener(this);
+		setNemo();
 	}
 	
-	
+	private void setNemo() {
+		Random rn = new Random();
+		int rX = rn.nextInt(600-SIZE);
+		int rY = rn.nextInt(600-SIZE);
+		this.nemo = new MovingRect(rX,rY,SIZE,SIZE);
+	}
 	
 	@Override
 	protected void paintComponent(Graphics g) {
@@ -70,8 +77,9 @@ class MovingPanel extends JPanel implements MouseMotionListener,MouseListener{
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		if(this.x > this.nemo.getX() && this.x < this.nemo.getX()+SIZE
-				&& this.y > this.nemo.getY() && this.y < this.nemo.getY()+SIZE) {
+//		if(this.x >= this.nemo.getX() && this.x < this.nemo.getX()+SIZE
+//				&& this.y >= this.nemo.getY() && this.y < this.nemo.getY()+SIZE) {
+		if(this.drag) {
 			this.nemo.setX(this.nemo.getX()-(this.x-e.getX()));
 			this.nemo.setY(this.nemo.getY()-(this.y-e.getY()));
 			this.x = e.getX();
@@ -98,10 +106,11 @@ class MovingPanel extends JPanel implements MouseMotionListener,MouseListener{
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		if(e.getX() > this.nemo.getX() && e.getX() < this.nemo.getX()+SIZE
-				&& e.getY() > this.nemo.getY() && e.getY() < this.nemo.getY()+SIZE) {
+		if(e.getX() >= this.nemo.getX() && e.getX() < this.nemo.getX()+SIZE
+				&& e.getY() >= this.nemo.getY() && e.getY() < this.nemo.getY()+SIZE) {
 			this.x = e.getX();
 			this.y = e.getY();
+			this.drag = true;
 		}
 	}
 

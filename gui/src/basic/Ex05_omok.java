@@ -51,7 +51,8 @@ class OmokPanel extends JPanel implements ActionListener{
 	
 	private void setReset(){
 		this.reset.setBounds(Omok.SIZE/2-50*this.mapSize/2, 60, 70, 30);
-		this.reset.setBackground(Color.white);
+		this.reset.setBackground(Color.black);
+		this.reset.setForeground(Color.white);
 		this.reset.addActionListener(this);
 		add(this.reset);
 	}
@@ -208,10 +209,11 @@ class Omok extends JFrame{
 	private OmokPanel panel = new OmokPanel();
 	
 	public Omok() {
+		
 		super("OMOK GAME");
 		setLayout(null);
 		setBounds(width/2-SIZE/2, height/2-SIZE/2, SIZE, SIZE);
-		setBackground(Color.white);
+//		setBackground(Color.white);
 		add(this.panel);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
